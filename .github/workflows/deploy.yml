@@ -1,0 +1,79 @@
+name: Deploy Astro + Worker to Cloudflare
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to Cloudflare Workers
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: './astro-worker/package-lock.json'
+
+      - name: Install dependencies
+        working-directory: ./astro-worker
+        run: npm ci
+
+      - name: Build Astro site
+        working-directory: ./astro-worker
+        run: npm run build
+
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          workingDirectory: './astro-worker'
+          command: deploy
+
+  # Also deploy static files to GitHub Pages as fallback
+  deploy-github-pages:
+    runs-on: ubuntu-latest
+    name: Deploy to GitHub Pages
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: './astro-worker/package-lock.json'
+
+      - name: Install dependencies
+        working-directory: ./astro-worker
+        run: npm ci
+
+      - name: Build Astro site
+        working-directory: ./astro-worker
+        run: npm run build
+
+      - name: Copy built files to root
+        run: |
+          cp ./astro-worker/dist/index.html ./index.html
+          # Also copy any other assets if needed
+          if [ -d "./astro-worker/dist/_astro" ]; then
+            mkdir -p ./_astro
+            cp -r ./astro-worker/dist/_astro/* ./_astro/
+          fi
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          exclude_assets: 'astro-worker/**,!astro-worker/dist/**'

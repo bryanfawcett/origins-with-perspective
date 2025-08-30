@@ -2,19 +2,79 @@
 
 A single-page web presentation exploring education, capability, and human potential from a Zimbabwe perspective.
 
-## Files Overview
+## 🚀 Deployment Strategy
 
-- `index.html` - Main presentation page (optimized for Cloudflare Pages)
-- `visual_learning_reflection.html` - Original file (backup)
-- `_headers` - Cloudflare Pages configuration for security and caching
-- `_redirects` - Redirect configuration for Cloudflare Pages
-- `.gitignore` - Git ignore file
+This project uses a dual-deployment approach:
 
-## Deployment to Cloudflare Pages
+### Primary: Astro + Cloudflare Worker
+- **Source**: `/astro-worker/` directory contains the Astro project
+- **Build**: Static site generated with optimized loading and performance
+- **Deploy**: Cloudflare Worker serves the content with enhanced caching and CDN
+- **Features**: Loading screen, optimized images, performance monitoring
 
-### Option 1: Git Repository (Recommended)
+### Fallback: GitHub Pages
+- **Source**: Root directory files for direct GitHub Pages deployment
+- **Purpose**: Backup deployment method and compatibility
 
-1. Initialize a git repository:
+## 🏗️ Architecture
+
+### `/astro-worker/` - Modern Stack
+- **Astro 5.x**: Static site generator with optimized output
+- **Loading Screen**: "Origins with a Perspective on Learning" 
+- **Optimized JavaScript**: Consolidated intersection observers and popup functions
+- **Performance**: Lazy loading, error handling, observer cleanup
+- **Worker**: Cloudflare Worker handles routing and asset serving
+
+### Root Files - Legacy/Fallback
+- `index.html`: Standalone version for direct deployment
+- `visual_learning_reflection.html`: Original backup file
+- Cloudflare Pages configuration files (`_headers`, `_redirects`)
+
+## 🔧 Development
+
+```bash
+cd astro-worker
+npm install
+npm run dev       # Development server
+npm run build     # Build for production
+```
+
+## 📦 Deployment
+
+### Automatic (Recommended)
+Push to `main` branch triggers GitHub Actions:
+1. Builds Astro project
+2. Deploys to Cloudflare Worker
+3. Falls back to GitHub Pages
+
+### Manual Cloudflare Worker
+```bash
+cd astro-worker
+npm run build
+npx wrangler deploy
+```
+
+## 🎨 Features
+
+- **Loading Screen**: Branded loading experience while images preload
+- **Zimbabwe Flag Strip**: Visual cultural identity element  
+- **Smooth Scroll Navigation**: Optimized intersection observers
+- **Daniel Pink Popup**: Interactive content with keyboard/click handling
+- **Responsive Design**: Mobile-first approach with performance optimization
+- **Error Handling**: Graceful image fallbacks and error recovery
+
+## 🚀 Performance Optimizations
+
+- Consolidated JavaScript functions (removed redundancies)
+- Optimized intersection observers with cleanup
+- Lazy loading images with error handling
+- Efficient CSS delivery and caching
+- Loading screen prevents layout shift
+
+## 🔗 URLs
+
+- **Primary**: Cloudflare Worker URL (configured in wrangler.toml)
+- **Fallback**: [GitHub Pages](https://bryanfawcett.github.io/origins-with-perspective)
    ```bash
    git init
    git add .

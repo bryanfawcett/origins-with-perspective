@@ -1,0 +1,1002 @@
+---
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Origins: A Zimbabwe Perspective on Human Potential</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3)),
+                        url('https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center/cover fixed;
+            color: #333;
+            line-height: 1.7;
+            scroll-behavior: smooth;
+        }
+
+        .zimbabwe-flag-strip {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 100vh;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flag-green { background: #00A651; flex: 1; }
+        .flag-yellow { background: #FDD116; flex: 1; }
+        .flag-red { background: #EF3340; flex: 1; }
+        .flag-black { background: #000000; flex: 1; }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px 0 60px;
+            min-height: 100vh;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 120px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-content {
+            background: rgba(255, 255, 255, 0.96);
+            padding: 80px 70px;
+            border-radius: 12px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            max-width: 900px;
+            border-left: 6px solid #00A651;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            letter-spacing: -2px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .hero-description {
+            font-size: 1.3rem;
+            color: #34495e;
+            font-weight: 400;
+        }
+
+        .content-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            margin-bottom: 120px;
+        }
+
+        .content-box {
+            background: rgba(255, 255, 255, 0.96);
+            padding: 60px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: translateX(-50px);
+            transition: all 0.8s ease-out;
+            border-left: 6px solid #00A651;
+        }
+
+        .content-box.visible {
+            transform: translateX(0);
+        }
+
+        .content-box.right {
+            transform: translateX(50px);
+            border-left: none;
+            border-right: 6px solid #EF3340;
+        }
+
+        .content-box.right.visible {
+            transform: translateX(0);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            letter-spacing: -1px;
+        }
+
+        .section-text {
+            font-size: 1.2rem;
+            color: #34495e;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .highlight-box {
+            background: #f8f9fa;
+            border: 2px solid #00A651;
+            padding: 40px;
+            border-radius: 8px;
+            margin: 40px 0;
+            font-size: 1.2rem;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .quote-box {
+            background: #fff5f5;
+            border: 2px solid #EF3340;
+            padding: 40px;
+            border-radius: 8px;
+            margin: 40px 0;
+            font-style: italic;
+            font-size: 1.3rem;
+            color: #2c3e50;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .quote-box::before {
+            content: '"';
+            font-size: 4rem;
+            color: #EF3340;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+
+        .image-container {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            height: 450px;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.02);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+            color: white;
+            padding: 40px;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        .full-width-section {
+            background: rgba(255, 255, 255, 0.96);
+            padding: 80px 60px;
+            border-radius: 12px;
+            margin: 80px 0;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+            border-left: 6px solid #FDD116;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .capability-card {
+            background: #ffffff;
+            border: 2px solid #e9ecef;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+
+        .capability-card:hover {
+            border-color: #00A651;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .capability-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .capability-card p {
+            font-size: 1.1rem;
+            color: #5a6c7d;
+            line-height: 1.7;
+        }
+
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .question-card {
+            background: #ffffff;
+            border: 2px solid #e9ecef;
+            padding: 40px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .question-card:nth-child(1) { border-left: 6px solid #00A651; }
+        .question-card:nth-child(2) { border-left: 6px solid #EF3340; }
+        .question-card:nth-child(3) { border-left: 6px solid #FDD116; }
+        .question-card:nth-child(4) { border-left: 6px solid #000000; }
+
+        .question-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-card h4 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .question-card p {
+            font-size: 1.1rem;
+            color: #5a6c7d;
+            line-height: 1.7;
+        }
+
+        .closing-section {
+            background: rgba(255, 255, 255, 0.96);
+            padding: 80px 60px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+            margin: 80px 0;
+            border: 2px solid #34495e;
+        }
+
+        .closing-title {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 40px;
+            color: #2c3e50;
+            letter-spacing: -1px;
+        }
+
+        .closing-text {
+            font-size: 1.3rem;
+            color: #34495e;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .scroll-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .scroll-dot.active {
+            background: #00A651;
+            border-color: #ffffff;
+            transform: scale(1.2);
+        }
+
+        .zimbabwe-flag {
+            display: inline-block;
+            font-size: 2.5rem;
+            margin-right: 15px;
+            vertical-align: middle;
+        }
+
+        .daniel-pink-link {
+            color: #2980b9;
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .daniel-pink-link:hover {
+            color: #3498db;
+        }
+
+        /* Popup Modal Styles */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .popup-overlay.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            margin: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #999;
+            font-weight: bold;
+            line-height: 1;
+            transition: color 0.3s ease;
+        }
+
+        .popup-close:hover {
+            color: #333;
+        }
+
+        .popup-title {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 300;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+        }
+
+        .popup-subtitle {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .popup-section {
+            margin-bottom: 30px;
+        }
+
+        .popup-section h3 {
+            font-size: 1.4rem;
+            color: #2980b9;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .popup-section p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #34495e;
+            margin-bottom: 15px;
+        }
+
+        .popup-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .popup-list li {
+            padding: 10px 0;
+            border-left: 4px solid #3498db;
+            padding-left: 20px;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .popup-list li strong {
+            color: #2c3e50;
+        }
+
+        .popup-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .popup-link:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 30px;
+            }
+            
+            .content-section {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            
+            .capabilities-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .question-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .popup-content {
+                padding: 30px;
+                margin: 10px;
+            }
+        }
+
+                /* Loading Screen Styles */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #00A651, #FDD116);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .loading-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-title {
+            font-size: 4rem;
+            font-weight: 300;
+            color: white;
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .loading-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+            text-align: center;
+            font-weight: 300;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .zimbabwe-flag-loading {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content,
+            .content-box,
+            .full-width-section {
+                padding: 40px;
+            }
+            
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .section-title {
+                font-size: 2.3rem;
+            }
+
+            .popup-content {
+                padding: 30px;
+                margin: 10px;
+            }
+
+            .popup-title {
+                font-size: 1.8rem;
+            }
+
+            .loading-title {
+                font-size: 2.5rem;
+            }
+
+            .loading-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="zimbabwe-flag-loading">🇿🇼</div>
+        <h1 class="loading-title">Origins</h1>
+        <p class="loading-subtitle">A Perspective on Learning</p>
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Zimbabwe Flag Strip -->
+    <div class="zimbabwe-flag-strip">
+        <div class="flag-green"></div>
+        <div class="flag-yellow"></div>
+        <div class="flag-red"></div>
+        <div class="flag-black"></div>
+    </div>
+
+    <!-- Scroll Navigation -->
+    <div class="scroll-indicator">
+        <div class="scroll-dot active" data-section="0"></div>
+        <div class="scroll-dot" data-section="1"></div>
+        <div class="scroll-dot" data-section="2"></div>
+        <div class="scroll-dot" data-section="3"></div>
+        <div class="scroll-dot" data-section="4"></div>
+        <div class="scroll-dot" data-section="5"></div>
+    </div>
+
+    <!-- Daniel Pink Popup -->
+    <div class="popup-overlay" id="danielPinkPopup">
+        <div class="popup-content">
+            <span class="popup-close" onclick="closeDanielPinkPopup()">&times;</span>
+            <h2 class="popup-title">What You'll Learn in "A Whole New Mind"</h2>
+            <p class="popup-subtitle">Key insights from Daniel Pink's groundbreaking book</p>
+            
+            <div class="popup-section">
+                <p>The structure of our brains offers a metaphor for the contours of our times. We're moving from a world that prizes metaphorically "left brain" skills (logical, linear, spreadsheet skills) to one that prizes more "right brain" skills (artistry, empathy, big picture thinking.)</p>
+            </div>
+
+            <div class="popup-section">
+                <h3>Three Forces Driving Change</h3>
+                <p><strong>Abundance, Automation, and Asia.</strong> Significantly higher living standards have put a premium on creating new categories of products and services and enhancing existing offerings with greater beauty and meaning. Software, and now AI, has become adept at doing certain routine intellectual work faster and better than humans. And offshoring has driven down the price of that reductive work.</p>
+            </div>
+
+            <div class="popup-section">
+                <h3>The New Essential Abilities</h3>
+                <p>The most important abilities are no longer high tech – but <strong>"high concept"</strong> and <strong>"high touch."</strong> These abilities are hard to outsource, hard to automate, and deliver on the new demands of an abundant world.</p>
+            </div>
+
+            <div class="popup-section">
+                <h3>Core High Concept Abilities</h3>
+                <ul class="popup-list">
+                    <li><strong>Design:</strong> Combining utility and significance - thinking like a designer</li>
+                    <li><strong>Story:</strong> Putting facts in context and delivering them with emotional impact</li>
+                    <li><strong>Symphony:</strong> Combining disparate pieces into a whole greater than the sum of its parts</li>
+                </ul>
+            </div>
+
+            <div class="popup-section">
+                <h3>Core High Touch Abilities</h3>
+                <ul class="popup-list">
+                    <li><strong>Empathy:</strong> See with others' eyes, hear with others' ears, and feel with others' hearts</li>
+                    <li><strong>Play:</strong> Not only a source of joy, but also a pathway to more intense creativity and inspiration</li>
+                    <li><strong>Meaning:</strong> The pursuit of meaning and significance has taken on new importance in a world of increasing material well-being</li>
+                </ul>
+            </div>
+
+            <a href="https://www.danpink.com/books/whole-new-mind/" target="_blank" class="popup-link">Learn More About "A Whole New Mind"</a>
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <!-- Hero Section -->
+        <section class="section hero-section visible" id="section-0">
+            <div class="hero-content">
+                <h1 class="hero-title"><span class="zimbabwe-flag">🇿🇼</span>Origins</h1>
+                <p class="hero-subtitle">A Zimbabwe Perspective on Human Potential</p>
+                <p class="hero-description">Good morning! I want to bring something to our equity lens today, and it starts with <strong>origins</strong> - both where I came from and where education itself began.</p>
+            </div>
+        </section>
+
+        <!-- Zimbabwe Origins -->
+        <section class="section" id="section-1">
+            <div class="content-section">
+                <div class="content-box">
+                    <h2 class="section-title">My Zimbabwe Origins</h2>
+                    <p class="section-text">I'm from <strong>Zimbabwe</strong> - the only team member here who's a citizen from a non-first-world country.</p>
+                    <div class="highlight-box">
+                        <strong>Growing up in Zimbabwe in the 90s, 2000s, and 2010s taught me something fundamental:</strong><br><br>
+                        Skills meant survival and success, not grades or good school names.
+                    </div>
+                    <p class="section-text">When infrastructure fails regularly, when you must collaborate to solve problems no textbook covers, when innovation means the difference between thriving and merely surviving - you develop a different understanding of what intelligence really looks like.</p>
+                </div>
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Zimbabwe Landscape">
+                    <div class="image-overlay">Zimbabwe: Where capability mattered more than credentials</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Capability vs Credentials -->
+        <section class="section" id="section-2">
+            <div class="content-section">
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1544376664-80b17f09d399?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="African Education">
+                    <div class="image-overlay">Real-world learning in action</div>
+                </div>
+                <div class="content-box right">
+                    <h2 class="section-title">Capability Over Credentials</h2>
+                    <p class="section-text">In Zimbabwe, I learned that real-world success comes from skills like adapting, collaborating, and solving unexpected problems...</p>
+                    <div class="quote-box">
+                        Not from following the traditional first-world pathway of good grades → good college → good job.
+                    </div>
+                    <p class="section-text">You succeeded based on what you could actually <em>do</em> - your ability to think critically, adapt quickly, and work with others to solve real problems. Capability mattered more than credentials.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education's Origins -->
+        <section class="section" id="section-3">
+            <div class="content-section">
+                <div class="content-box">
+                    <h2 class="section-title">Education's True Origins</h2>
+                    <p class="section-text">This perspective made me curious about <strong>education's origins</strong>. Historically, the greatest centers of learning - from ancient Alexandria to Renaissance academies - focused on developing minds capable of original thought and real-world application.</p>
+                    <div class="highlight-box">
+                        Scholars were evaluated based on their ability to contribute new knowledge, engage in meaningful discourse, and solve complex problems - not on their capacity for simple memorization under artificial constraints.
+                    </div>
+                    <p class="section-text" style="color: #e74c3c; font-weight: 500;">When did we shift from cultivating intellectual excellence to measuring test-taking ability? When did we begin filtering our most promising minds based on their performance in artificial, high-pressure situations rather than their capacity for deep thinking?</p>
+                </div>
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Historic Library">
+                    <div class="image-overlay">Historic centers of learning: Where scholarship meant original contribution</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Current Context -->
+        <section class="section" id="section-4">
+            <div class="full-width-section">
+                <h2 class="section-title" style="text-align: center; margin-bottom: 40px;">Fresh Eyes on Our Work</h2>
+                <p class="section-text" style="text-align: center; font-size: 1.4rem; margin-bottom: 40px;">Now, many of you know me as <strong>"the IT guy"</strong> - but that's just one part of who I am. Transitioning into technology and innovation coordination, implementing AI tools, managing our Toddle transition...</p>
+                
+                <div class="highlight-box" style="text-align: center; font-size: 1.3rem;">
+                    I'm watching us introduce technologies that can handle information recall instantly, while still often assessing students on their ability to... memorize information under time pressure.
+                </div>
+                
+                <p class="section-text" style="text-align: center; font-size: 1.2rem; margin-top: 40px;">My Zimbabwe background gives me a unique lens: I've seen what happens when we measure actual capability instead of academic performance. And I'm wondering - what might we be missing?</p>
+            </div>
+        </section>
+
+        <!-- The Conceptual Age -->
+        <section class="section" id="section-5">
+            <div class="full-width-section">
+                <h2 class="section-title" style="text-align: center; margin-bottom: 30px;">The Conceptual Age</h2>
+                <p class="section-text" style="text-align: center; font-size: 1.3rem; margin-bottom: 50px;"><span class="daniel-pink-link" onclick="openDanielPinkPopup()">Daniel Pink</span> calls this the <strong>"Conceptual Age"</strong> - where the skills that drove success in Zimbabwe become the skills that drive success everywhere...</p>
+                
+                <div class="capabilities-grid">
+                    <div class="capability-card">
+                        <h3>🎯 Critical Thinking</h3>
+                        <p>Analyzing complex problems, questioning assumptions, and synthesizing solutions from multiple perspectives.</p>
+                    </div>
+                    <div class="capability-card">
+                        <h3>🎨 Creativity</h3>
+                        <p>Innovation and design thinking that creates new possibilities and approaches to challenges.</p>
+                    </div>
+                    <div class="capability-card">
+                        <h3>🤝 Collaboration</h3>
+                        <p>Working effectively with diverse teams to achieve shared goals and build collective understanding.</p>
+                    </div>
+                    <div class="capability-card">
+                        <h3>💬 Communication</h3>
+                        <p>Sharing ideas clearly, building bridges between different perspectives, and creating meaningful dialogue.</p>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="text-align: center; margin-top: 50px; font-size: 1.2rem;">
+                    Looking at our seven core capabilities, how might we capture these more fully in how we assess learning?
+                </div>
+            </div>
+        </section>
+
+        <!-- Questions & Discussion -->
+        <section class="section" id="section-6">
+            <div class="full-width-section">
+                <h2 class="section-title" style="text-align: center; margin-bottom: 30px;">Let's Explore Together</h2>
+                <p class="section-text" style="text-align: center; font-size: 1.2rem; margin-bottom: 50px;">This connects directly to our equity framework, particularly: <em>"What assumptions are we making about students, and how can we challenge those assumptions?"</em></p>
+                
+                <div class="question-grid">
+                    <div class="question-card">
+                        <h4>👁️ Different Perspectives</h4>
+                        <p>What might we discover about how different minds demonstrate understanding? How do cultural backgrounds shape what we recognize as intelligence?</p>
+                    </div>
+                    
+                    <div class="question-card">
+                        <h4>🌍 Cultural Lens</h4>
+                        <p>How do different backgrounds shape what we see as "intelligence"? What valuable ways of knowing might we be overlooking?</p>
+                    </div>
+                    
+                    <div class="question-card">
+                        <h4>🚧 Hidden Barriers</h4>
+                        <p>Could our assessment methods create unintended barriers? Are there brilliant minds we're filtering out before we recognize their potential?</p>
+                    </div>
+                    
+                    <div class="question-card">
+                        <h4>✨ Strategic Alignment</h4>
+                        <p>How might we better showcase our seven capabilities through tools like Toddle? What opportunities exist to capture learning in new ways?</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="closing-section">
+                <h2 class="closing-title">The Questions That Matter</h2>
+                <p class="closing-text">I don't have answers - just questions from someone seeing our work through a different lens.</p>
+                <div class="quote-box" style="border-color: #2c3e50; background: #f8f9fa; margin: 40px auto; max-width: 800px;">
+                    As the only team member from a non-first-world country, I wonder: Are there brilliant minds we're missing because we're measuring the wrong things?
+                </div>
+                <p class="closing-text"><strong>What are your thoughts? What have you noticed about how different students demonstrate these capabilities?</strong></p>
+                <p class="section-text" style="margin-top: 30px; font-style: italic;">Thank you for this journey of discovery!</p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Loading Screen Management
+        window.addEventListener('load', function() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            // Add slight delay to ensure all images are processed
+            setTimeout(() => {
+                loadingScreen.classList.add('fade-out');
+                // Remove from DOM after transition
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }, 1000); // Show loading for at least 1 second
+        });
+
+        // Optimized Intersection Observer for scroll animations
+        let sectionObserver, contentObserver;
+
+        const initializeObservers = () => {
+            const sections = document.querySelectorAll('.section');
+            const scrollDots = document.querySelectorAll('.scroll-dot');
+            const contentBoxes = document.querySelectorAll('.content-box');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '-10% 0px -10% 0px',
+                threshold: 0.2
+            };
+
+            // Single observer for sections with scroll indicator update
+            sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        // Update scroll indicator efficiently
+                        const sectionIndex = Array.from(sections).indexOf(entry.target);
+                        scrollDots.forEach((dot, index) => {
+                            dot.classList.toggle('active', index === sectionIndex);
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            // Separate observer for content boxes
+            contentObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe elements
+            sections.forEach(section => sectionObserver.observe(section));
+            contentBoxes.forEach(box => contentObserver.observe(box));
+        };
+
+        // Optimized smooth scroll for navigation dots
+        const initializeNavigation = () => {
+            const scrollDots = document.querySelectorAll('.scroll-dot');
+            scrollDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    const targetSection = document.getElementById(`section-${index}`);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        };
+
+        // Daniel Pink popup functions (consolidated)
+        const popupFunctions = {
+            open() {
+                const popup = document.getElementById('danielPinkPopup');
+                popup.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            },
+            
+            close() {
+                const popup = document.getElementById('danielPinkPopup');
+                popup.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+        };
+
+        // Make popup functions global
+        window.openDanielPinkPopup = popupFunctions.open;
+        window.closeDanielPinkPopup = popupFunctions.close;
+
+        // Event listeners for popup
+        const initializePopup = () => {
+            const popup = document.getElementById('danielPinkPopup');
+            
+            // Close when clicking outside
+            popup.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    popupFunctions.close();
+                }
+            });
+
+            // Close with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    popupFunctions.close();
+                }
+            });
+        };
+
+        // Image loading optimization
+        const optimizeImages = () => {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                // Add loading="lazy" if not already present
+                if (!img.hasAttribute('loading')) {
+                    img.setAttribute('loading', 'lazy');
+                }
+                
+                // Error handling
+                img.addEventListener('error', function() {
+                    this.style.display = 'none';
+                    const overlay = this.nextElementSibling;
+                    if (overlay && overlay.classList.contains('image-overlay')) {
+                        overlay.style.background = '#f8f9fa';
+                        overlay.style.color = '#666';
+                        overlay.innerHTML = '📷 Image unavailable';
+                    }
+                });
+            });
+        };
+
+        // Initialize everything when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize all components
+            initializeObservers();
+            initializeNavigation();
+            initializePopup();
+            optimizeImages();
+            
+            // Make first section visible immediately
+            const firstSection = document.getElementById('section-0');
+            if (firstSection) {
+                firstSection.classList.add('visible');
+            }
+        });
+
+        // Cleanup observers on page unload
+        window.addEventListener('beforeunload', () => {
+            if (sectionObserver) sectionObserver.disconnect();
+            if (contentObserver) contentObserver.disconnect();
+        });
+    </script>
+</body>
+</html>
