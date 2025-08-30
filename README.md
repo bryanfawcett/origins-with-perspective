@@ -4,68 +4,73 @@ A single-page web presentation exploring education, capability, and human potent
 
 ## 🚀 Deployment Strategy
 
-This project uses a dual-deployment approach:
+This project uses **GitHub Actions for automated Cloudflare Workers deployment**.
 
-### Primary: Astro + Cloudflare Worker
+### Architecture: Astro + Cloudflare Worker
 - **Source**: `/astro-worker/` directory contains the Astro project
-- **Build**: Static site generated with optimized loading and performance
-- **Deploy**: Cloudflare Worker serves the content with enhanced caching and CDN
-- **Features**: Loading screen, optimized images, performance monitoring
+- **Build**: Static site generated with optimized loading and performance  
+- **Deploy**: Automated via GitHub Actions to Cloudflare Worker
+- **Live URL**: https://origins-with-perspective.nyuchi.workers.dev
+- **Features**: Iframe embeddable, loading screen, optimized performance
 
-### Fallback: GitHub Pages
-- **Source**: Root directory files for direct GitHub Pages deployment
-- **Purpose**: Backup deployment method and compatibility
+## 🏗️ Project Structure
 
-## 🏗️ Architecture
-
-### `/astro-worker/` - Modern Stack
+### `/astro-worker/` - Main Application
 - **Astro 5.x**: Static site generator with optimized output
 - **Loading Screen**: "Origins with a Perspective on Learning" 
 - **Optimized JavaScript**: Consolidated intersection observers and popup functions
 - **Performance**: Lazy loading, error handling, observer cleanup
-- **Worker**: Cloudflare Worker handles routing and asset serving
+- **Worker**: Cloudflare Worker handles routing and asset serving with iframe support
 
-### Root Files - Legacy/Fallback
-- `index.html`: Standalone version for direct deployment
-- `visual_learning_reflection.html`: Original backup file
-- Cloudflare Pages configuration files (`_headers`, `_redirects`)
+### GitHub Integration
+- **Repository**: [origins-with-perspective](https://github.com/bryanfawcett/origins-with-perspective)
+- **CI/CD**: GitHub Actions automatically deploys on push to `main`
+- **Configuration**: `wrangler.toml` linked to GitHub for deployment automation
 
 ## 🔧 Development
 
-### Quick Commands (from root directory)
+### Local Development
 ```bash
-npm run build          # Build Astro and update root files
-npm run dev            # Start Astro development server  
-npm run preview        # Preview built site locally
-npm run worker:deploy  # Deploy to Cloudflare Worker
-```
-
-### Manual Commands
-```bash
-# Build just the Astro project
-cd astro-worker && npm run build
-
-# Run development server
+# Start development server
 cd astro-worker && npm run dev
 
-# Deploy worker manually  
-cd astro-worker && npx wrangler deploy
+# Build for production
+cd astro-worker && npm run build
+
+# Preview built site locally
+cd astro-worker && npm run preview
+```
+
+### Build Script (from root)
+```bash
+./build.sh    # Builds project and shows deployment info
 ```
 
 ## 📦 Deployment
 
-### Automatic (Recommended)
-Push to `main` branch triggers GitHub Actions:
-1. Builds Astro project
-2. Deploys to Cloudflare Worker
-3. Falls back to GitHub Pages
+### GitHub Actions (Only Deployment Method)
 
-### Manual Cloudflare Worker
-```bash
-cd astro-worker
-npm run build
-npx wrangler deploy
-```
+**All deployments happen automatically via GitHub Actions:**
+
+1. **Make changes** to files in `/astro-worker/`
+2. **Commit and push** to `main` branch:
+   ```bash
+   git add .
+   git commit -m "Your changes"
+   git push origin main
+   ```
+3. **GitHub Actions** automatically:
+   - Builds the Astro project
+   - Deploys to Cloudflare Workers
+   - Updates live site at https://origins-with-perspective.nyuchi.workers.dev
+
+### Configuration Files
+
+- **`wrangler.toml`**: Cloudflare Worker configuration linked to GitHub
+- **`.github/workflows/deploy.yml`**: GitHub Actions deployment workflow
+- **`astro-worker/package.json`**: Build scripts and dependencies
+
+**⚠️ Manual deployments are disabled** - all changes must go through GitHub for consistency and security.
 
 ## 🎨 Features
 
