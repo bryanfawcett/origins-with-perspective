@@ -2,9 +2,9 @@ name = "origins-with-perspective"
 main = "worker.js"
 compatibility_date = "2025-08-30"
 
-# Static assets configuration for Wrangler 3.x
+# Static assets configuration for Wrangler 4.x
 [assets]
-directory = "dist"
+directory = "./dist"
 binding = "ASSETS"
 
 # GitHub repository integration
