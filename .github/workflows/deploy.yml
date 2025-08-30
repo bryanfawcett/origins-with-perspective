@@ -38,17 +38,34 @@ jobs:
         run: npm ci
 
       - name: "Build Astro site"
-        run: npm run build
+        run: |
+          echo "=== Starting Astro build ==="
+          npm run build
+          echo "=== Astro build completed, exit code: $? ==="
 
       - name: "Verify build output"
         run: |
-          echo "Checking if dist directory exists..."
+          echo "=== Checking current working directory ==="
+          pwd
+          echo ""
+          echo "=== Listing all files in current directory ==="
           ls -la
+          echo ""
+          echo "=== Checking if dist directory exists ==="
           if [ -d "dist" ]; then
             echo "✅ dist directory found"
+            echo "=== Contents of dist directory ==="
             ls -la dist/
+            echo ""
+            echo "=== Size of dist directory ==="
+            du -sh dist/
           else
             echo "❌ dist directory not found"
+            echo "=== Looking for any dist-related directories ==="
+            find . -name "*dist*" -type d 2>/dev/null || echo "No dist directories found"
+            echo ""
+            echo "=== Checking build output from npm run build ==="
+            echo "Build may have failed or output to different location"
             exit 1
           fi
 
