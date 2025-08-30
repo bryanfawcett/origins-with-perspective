@@ -2,58 +2,32 @@
 import indexHTML from './dist/index.html';
 
 export default {
-  async fetch(request, env, ctx) {
+  async fetch(request, env) {
     const url = new URL(request.url);
+    const pathname = url.pathname;
     
-    // Serve the main HTML file for root path
-    if (url.pathname === '/' || url.pathname === '/index.html') {
-      return new Response(indexHTML, {
-        headers: {
-          'Content-Type': 'text/html; charset=utf-8',
-          'Cache-Control': 'public, max-age=300',
-          'X-Frame-Options': 'SAMEORIGIN',
-          'X-Content-Type-Options': 'nosniff',
-        },
-      });
-    }
-    
-    // Handle static assets (CSS, JS, images from _astro directory)
-    if (url.pathname.startsWith('/_astro/')) {
-      // Try to serve the static asset
+    // Serve the main HTML page for root requests
+    if (pathname === '/' || pathname === '/index.html') {
       try {
-        const assetPath = url.pathname.substring(1); // Remove leading slash
-        const asset = await import(`./${assetPath}`);
-        
-        // Determine content type based on file extension
-        const extension = assetPath.split('.').pop().toLowerCase();
-        const contentType = {
-          'css': 'text/css',
-          'js': 'application/javascript',
-          'png': 'image/png',
-          'jpg': 'image/jpeg',
-          'jpeg': 'image/jpeg',
-          'svg': 'image/svg+xml',
-          'woff2': 'font/woff2',
-          'woff': 'font/woff',
-        }[extension] || 'text/plain';
-
-        return new Response(asset.default || asset, {
+        const asset = await env.ASSETS.fetch('https://example.com/index.html');
+        const html = await asset.text();
+        return new Response(html, {
           headers: {
-            'Content-Type': contentType,
-            'Cache-Control': 'public, max-age=31536000', // 1 year for static assets
+            'content-type': 'text/html;charset=UTF-8',
+            'cache-control': 'public, max-age=3600',
           },
         });
       } catch (error) {
-        return new Response('Asset not found', { status: 404 });
+        return new Response('Site not found', { status: 404 });
       }
     }
     
-    // Return 404 for other routes
-    return new Response('Not Found', { 
-      status: 404,
-      headers: {
-        'Content-Type': 'text/plain',
-      }
-    });
+    // Serve other assets from the ASSETS binding
+    try {
+      const asset = await env.ASSETS.fetch(request);
+      return asset;
+    } catch (error) {
+      return new Response('Not found', { status: 404 });
+    }
   },
 };

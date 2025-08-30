@@ -32,6 +32,10 @@ fi
 cp astro-worker/dist/index.html ./index.html
 echo "📄 Updated root index.html with Astro build"
 
+# Copy the background image to root
+cp astro-worker/public/african-savanna-background.jpg ./
+echo "🖼️  Copied background image to root"
+
 # Copy any CSS assets if they exist
 if [ -d "astro-worker/dist/_astro" ]; then
     mkdir -p ./_astro

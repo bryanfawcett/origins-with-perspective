@@ -2,7 +2,7 @@ name = "origins-zimbabwe-presentation"
 main = "worker.js"
 compatibility_date = "2024-08-01"
 
-[rules]
-  - type = "Text"
-    globs = ["dist/index.html"]
-    fallthrough = true
+# Static assets configuration
+[assets]
+  directory = "./dist"
+  binding = "ASSETS"
