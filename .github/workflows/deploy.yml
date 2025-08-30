@@ -30,21 +30,17 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
-          cache-dependency-path: './astro-worker/package-lock.json'
 
       - name: "Install dependencies"
-        working-directory: ./astro-worker
         run: npm ci
 
       - name: "Build Astro site"
-        working-directory: ./astro-worker
         run: npm run build
 
       - name: "Deploy to Cloudflare Workers"
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          workingDirectory: './astro-worker'
           command: deploy --assets=./dist
 
       - name: "Deployment Summary"
