@@ -1,4 +1,4 @@
-name: 🚀 Deploy Origins: Zimbabwe Perspective to Cloudflare Workers
+name: "Deploy Origins: Zimbabwe Perspective to Cloudflare Workers"
 
 on:
   push:
@@ -18,40 +18,38 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    name: 🌐 Deploy to Cloudflare Workers
+    name: "Deploy to Cloudflare Workers"
     environment: production
 
     steps:
-      - name: 📥 Checkout repository
+      - name: "Checkout repository"
         uses: actions/checkout@v4
 
-      - name: 🟢 Setup Node.js ${{ env.NODE_VERSION }}
+      - name: "Setup Node.js ${{ env.NODE_VERSION }}"
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
           cache-dependency-path: './astro-worker/package-lock.json'
 
-      - name: 📦 Install dependencies
+      - name: "Install dependencies"
         working-directory: ./astro-worker
         run: npm ci
 
-      - name: 🔨 Build Astro site
+      - name: "Build Astro site"
         working-directory: ./astro-worker
         run: npm run build
 
-      - name: 🚀 Deploy to Cloudflare Workers
+      - name: "Deploy to Cloudflare Workers"
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           workingDirectory: './astro-worker'
-          command: deploy --env production
-        env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
 
-      - name: ✅ Deployment Summary
+      - name: "Deployment Summary"
         run: |
-          echo "🎉 Successfully deployed Origins: Zimbabwe Perspective!"
-          echo "🌍 Live URL: https://${{ env.WORKER_NAME }}.nyuchi.workers.dev"
-          echo "📝 Commit: ${{ github.sha }}"
-          echo "🔀 Branch: ${{ github.ref_name }}"
+          echo "Successfully deployed Origins: Zimbabwe Perspective!"
+          echo "Live URL: https://${{ env.WORKER_NAME }}.nyuchi.workers.dev"
+          echo "Commit: ${{ github.sha }}"
+          echo "Branch: ${{ github.ref_name }}"
