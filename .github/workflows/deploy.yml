@@ -50,7 +50,7 @@ jobs:
           fi
 
       - name: "Install Wrangler"
-        run: npm install -g wrangler@3.78.12
+        run: npm install -g wrangler@4
 
       - name: "Deploy to Cloudflare Workers"
         run: wrangler deploy
