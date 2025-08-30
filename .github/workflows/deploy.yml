@@ -4,15 +4,18 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'astro-worker/**'
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'astro.config.mjs'
+      - 'wrangler.toml'
+      - 'worker.js'
       - '.github/workflows/**'
   pull_request:
     branches: [ main ]
-    paths:
-      - 'astro-worker/**'
 
 env:
-  NODE_VERSION: '18'
+  NODE_VERSION: '20'
   WORKER_NAME: 'origins-with-perspective'
 
 jobs:
