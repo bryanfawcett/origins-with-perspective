@@ -45,7 +45,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           workingDirectory: './astro-worker'
-          command: deploy
+          command: deploy --assets=./dist
 
       - name: "Deployment Summary"
         run: |
