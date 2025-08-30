@@ -1,21 +1,13 @@
 name = "origins-with-perspective"
 main = "worker.js"
-compatibility_date = "2024-08-01"
-
-# GitHub integration for automatic deployments
-[env.production]
-  name = "origins-with-perspective"
+compatibility_date = "2025-08-30"
 
 # Static assets configuration
 [assets]
-  directory = "./dist"
-  binding = "ASSETS"
-
-# Deployment settings
-[build]
-  command = "npm run build"
+directory = "./dist"
 
 # GitHub repository integration
 # This worker is automatically deployed via GitHub Actions
 # Repository: https://github.com/bryanfawcett/origins-with-perspective
+# Manual deployments are disabled - use GitHub for deployments
 # Manual deployments are disabled - use GitHub for deployments
