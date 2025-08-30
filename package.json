@@ -1,0 +1,26 @@
+{
+  "name": "origins-with-perspective",
+  "version": "1.0.0",
+  "description": "A Zimbabwe Perspective on Human Potential",
+  "scripts": {
+    "build": "./build.sh",
+    "dev": "cd astro-worker && npm run dev",
+    "preview": "cd astro-worker && npm run preview",
+    "astro:build": "cd astro-worker && npm run build",
+    "astro:dev": "cd astro-worker && npm run dev",
+    "worker:deploy": "cd astro-worker && npx wrangler deploy"
+  },
+  "keywords": [
+    "zimbabwe",
+    "education",
+    "presentation",
+    "astro",
+    "cloudflare-worker"
+  ],
+  "author": "Bryan Fawcett",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bryanfawcett/origins-with-perspective.git"
+  }
+}

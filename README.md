@@ -32,11 +32,24 @@ This project uses a dual-deployment approach:
 
 ## 🔧 Development
 
+### Quick Commands (from root directory)
 ```bash
-cd astro-worker
-npm install
-npm run dev       # Development server
-npm run build     # Build for production
+npm run build          # Build Astro and update root files
+npm run dev            # Start Astro development server  
+npm run preview        # Preview built site locally
+npm run worker:deploy  # Deploy to Cloudflare Worker
+```
+
+### Manual Commands
+```bash
+# Build just the Astro project
+cd astro-worker && npm run build
+
+# Run development server
+cd astro-worker && npm run dev
+
+# Deploy worker manually  
+cd astro-worker && npx wrangler deploy
 ```
 
 ## 📦 Deployment
