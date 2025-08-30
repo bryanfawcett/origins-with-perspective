@@ -37,11 +37,24 @@ jobs:
       - name: "Build Astro site"
         run: npm run build
 
+      - name: "Verify build output"
+        run: |
+          echo "Checking if dist directory exists..."
+          ls -la
+          if [ -d "dist" ]; then
+            echo "✅ dist directory found"
+            ls -la dist/
+          else
+            echo "❌ dist directory not found"
+            exit 1
+          fi
+
       - name: "Deploy to Cloudflare Workers"
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: deploy --assets=./dist
+          wranglerVersion: "3.78.12"
+          command: deploy
 
       - name: "Deployment Summary"
         run: |
