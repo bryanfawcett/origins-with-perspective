@@ -5,8 +5,7 @@
 
 echo "🚀 Building Origins presentation for Cloudflare Workers..."
 
-# Change to astro-worker directory and build
-cd astro-worker || exit 1
+# Build from root directory (files moved from astro-worker/ to root)
 echo "📦 Building Astro project..."
 npm run build
 
@@ -32,7 +31,7 @@ echo "2. � Push to GitHub: git push origin main"
 echo "3. ⏱️  GitHub Actions will automatically deploy to Cloudflare Workers"
 echo ""
 echo "🧪 For local testing:"
-echo "• Use 'npm run preview' in astro-worker/ directory"
+echo "• Use 'npm run preview' from root directory"
 echo ""
 echo "⚠️  Manual 'wrangler deploy' is disabled - use GitHub for all deployments"
 echo ""

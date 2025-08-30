@@ -1,20 +1,39 @@
-# OS generated files
+# build output
+dist/
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# environment variables
+.env
+.env.production
+
+# Cloudflare Workers
+.wrangler/
+wrangler.toml.bak
+
+# macOS-specific files
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
 
-# Editor files
-*.swp
-*.swo
-*~
+# jetbrains setting folder
+.idea/
 
-# Log files
-*.log
+# VS Code settings (optional - remove if you want to share settings)
+.vscode/
 
 # Temporary files
 *.tmp
 *.temp
+.cache/
+
+# OS generated files
+Thumbs.db
+ehthumbs.db

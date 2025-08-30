@@ -1,0 +1,17 @@
+{
+  "name": "origins-with-perspective",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Educational presentation about learning approaches in Zimbabwe",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "build:local": "./build.sh"
+  },
+  "dependencies": {
+    "astro": "^5.13.5"
+  }
+}
