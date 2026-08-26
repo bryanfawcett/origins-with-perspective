@@ -8,6 +8,7 @@ directory = "./dist"
 binding = "ASSETS"
 
 # GitHub repository integration
-# This worker is automatically deployed via GitHub Actions
+# Cloudflare's GitHub app deploys this Worker directly on push to main.
 # Repository: https://github.com/bryanfawcett/origins-with-perspective
-# Manual deployments are disabled - use GitHub for deployments
+# Manual `wrangler deploy` still works if ever needed, but the app is
+# the deploy path of record — avoid running both against the same push.
