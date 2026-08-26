@@ -7,6 +7,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Origins with a Perspective on Human Potential</title>
+    <meta name="description" content="Equity: the assumptions we make in learning. A Zimbabwe perspective on capability, credentials, and what we might be measuring wrong - by Bryan Fawcett.">
+    <meta name="author" content="Bryan Fawcett">
+    <meta name="theme-color" content="#00A651">
+    <link rel="canonical" href="https://bryanfawcett.com/origins-with-perspective">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Origins with a Perspective on Human Potential">
+    <meta property="og:description" content="Equity: the assumptions we make in learning. A Zimbabwe perspective on capability, credentials, and what we might be measuring wrong.">
+    <meta property="og:url" content="https://bryanfawcett.com/origins-with-perspective">
+    <meta property="og:site_name" content="Bryan Fawcett">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="@bryanfawcett">
+    <meta name="twitter:title" content="Origins with a Perspective on Human Potential">
+    <meta name="twitter:description" content="Equity: the assumptions we make in learning. A Zimbabwe perspective on capability, credentials, and what we might be measuring wrong.">
     <style>
         * {
             margin: 0;
@@ -14,7 +30,12 @@
             box-sizing: border-box;
         }
 
+        html {
+            overflow-x: hidden;
+        }
+
         body {
+            overflow-x: hidden;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3)),
                         url('/african-savanna-background.jpg') center/cover fixed;
@@ -220,7 +241,7 @@
 
         .capabilities-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
             gap: 40px;
             margin: 60px 0;
         }
@@ -255,7 +276,7 @@
 
         .question-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr));
             gap: 40px;
             margin: 60px 0;
         }
@@ -316,6 +337,151 @@
             line-height: 1.8;
         }
 
+        .journey-list {
+            list-style: none;
+            margin: 50px 0 0;
+            padding: 0;
+        }
+
+        .journey-item {
+            position: relative;
+            padding: 0 0 40px 40px;
+            border-left: 3px solid #e9ecef;
+        }
+
+        .journey-item:last-child {
+            padding-bottom: 0;
+            border-left-color: transparent;
+        }
+
+        .journey-item::before {
+            content: '';
+            position: absolute;
+            left: -11px;
+            top: 4px;
+            width: 19px;
+            height: 19px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 4px solid #00A651;
+        }
+
+        .journey-item:nth-child(even)::before {
+            border-color: #FDD116;
+        }
+
+        .journey-meta {
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: #7f8c8d;
+            margin-bottom: 6px;
+        }
+
+        .journey-item h3 {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 12px;
+        }
+
+        .journey-item p {
+            font-size: 1.1rem;
+            color: #5a6c7d;
+            line-height: 1.7;
+        }
+
+        .work-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+            gap: 50px;
+            margin: 50px 0 0;
+        }
+
+        .work-column h3 {
+            font-size: 1.1rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #7f8c8d;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .work-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .work-list li {
+            background: #ffffff;
+            border: 2px solid #e9ecef;
+            border-left: 6px solid #00A651;
+            border-radius: 8px;
+            padding: 24px 28px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .work-column:nth-child(2) .work-list li {
+            border-left-color: #EF3340;
+        }
+
+        .work-list li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .work-list strong {
+            display: block;
+            font-size: 1.2rem;
+            color: #2c3e50;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .work-list span {
+            font-size: 1.05rem;
+            color: #5a6c7d;
+            line-height: 1.6;
+        }
+
+        .work-list a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 2px solid rgba(0, 166, 81, 0.4);
+        }
+
+        .work-list a:hover {
+            border-bottom-color: #00A651;
+        }
+
+        .page-footer {
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 12px;
+            padding: 50px 60px;
+            margin: 0 0 80px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-footer p {
+            font-size: 1.1rem;
+            color: #5a6c7d;
+            line-height: 1.8;
+        }
+
+        .page-footer a {
+            color: #00A651;
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 2px solid rgba(0, 166, 81, 0.35);
+        }
+
+        .page-footer a:hover {
+            border-bottom-color: #00A651;
+        }
+
         .scroll-indicator {
             position: fixed;
             right: 30px;
@@ -327,9 +493,15 @@
             z-index: 1000;
         }
 
-        .scroll-dot {
-            width: 10px;
-            height: 10px;
+        /* Astro scopes styles to elements in the template, and these dots are
+           created at runtime by buildScrollDots() - so they need :global(). */
+        :global(.scroll-dot) {
+            display: block;
+            width: 14px;
+            height: 14px;
+            padding: 0;
+            appearance: none;
+            -webkit-appearance: none;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.4);
             transition: all 0.3s ease;
@@ -337,7 +509,12 @@
             border: 2px solid transparent;
         }
 
-        .scroll-dot.active {
+        :global(.scroll-dot:focus-visible) {
+            outline: 2px solid #ffffff;
+            outline-offset: 3px;
+        }
+
+        :global(.scroll-dot.active) {
             background: #00A651;
             border-color: #ffffff;
             transform: scale(1.2);
@@ -589,6 +766,20 @@
 
         @media (max-width: 768px) {
             .hero-content,
+            .page-footer {
+                padding: 40px 25px;
+            }
+
+            .work-columns {
+                gap: 40px;
+            }
+
+            .content-section {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                margin-bottom: 60px;
+            }
+
             .content-box,
             .full-width-section {
                 padding: 40px;
@@ -638,15 +829,8 @@
         <div class="flag-black"></div>
     </div>
 
-    <!-- Scroll Navigation -->
-    <div class="scroll-indicator">
-        <div class="scroll-dot active" data-section="0"></div>
-        <div class="scroll-dot" data-section="1"></div>
-        <div class="scroll-dot" data-section="2"></div>
-        <div class="scroll-dot" data-section="3"></div>
-        <div class="scroll-dot" data-section="4"></div>
-        <div class="scroll-dot" data-section="5"></div>
-    </div>
+    <!-- Scroll Navigation (dots are generated from the sections on the page) -->
+    <nav class="scroll-indicator" id="scrollIndicator" aria-label="Section navigation"></nav>
 
     <!-- Daniel Pink Popup -->
     <div class="popup-overlay" id="danielPinkPopup">
@@ -768,11 +952,112 @@
                 </div>
                 
                 <p class="section-text" style="text-align: center; font-size: 1.2rem; margin-top: 40px;">My Zimbabwe background gives me a unique lens: I've seen what happens when we measure actual capability instead of academic performance. And I'm wondering - what might we be missing?</p>
+
+                <p class="section-text" style="text-align: center; font-size: 1.1rem; margin-top: 30px; font-style: italic;">Before the questions, some context on how I got here - and what I spend my time building.</p>
+            </div>
+        </section>
+
+        <!-- The Path Here -->
+        <section class="section" id="section-5">
+            <div class="full-width-section">
+                <h2 class="section-title" style="text-align: center; margin-bottom: 20px;">The Path Here</h2>
+                <p class="section-text" style="text-align: center; font-size: 1.2rem;">Zimbabwe to South Africa to Japan to Singapore. Classroom to server room to strategy - which is why I keep asking questions that sit awkwardly between all three.</p>
+
+                <ol class="journey-list">
+                    <li class="journey-item">
+                        <div class="journey-meta">2012 &middot; Zimbabwe</div>
+                        <h3>Head of Products, eLearning Solutions</h3>
+                        <p>Took digital content and Intel Teach training into Zimbabwean schools - running 21st-century learning workshops in computer labs that often had no reliable power.</p>
+                    </li>
+                    <li class="journey-item">
+                        <div class="journey-meta">2012 - 2013 &middot; Harare, Zimbabwe</div>
+                        <h3>Teacher, St John's College</h3>
+                        <p>Geography, IT and History for Forms 1-3, plus cricket, field hockey and the Grade 8 outdoor education camp. My first view of assessment from the other side of the desk.</p>
+                    </li>
+                    <li class="journey-item">
+                        <div class="journey-meta">2014 - 2016 &middot; Johannesburg, South Africa</div>
+                        <h3>Teacher, then Assistant Principal, St John the Baptist</h3>
+                        <p>Built hands-on Cambridge Checkpoint and IGCSE curriculum for students from underserved communities in Roodepoort, then moved into administration, instructional technology and campus infrastructure.</p>
+                    </li>
+                    <li class="journey-item">
+                        <div class="journey-meta">2016 - present &middot; Africa, remote</div>
+                        <h3>Founder, Nyuchi Africa</h3>
+                        <p>A decade of building digital infrastructure for African communities under the Ubuntu philosophy - "I am because we are." Learning, language, news, events, travel.</p>
+                    </li>
+                    <li class="journey-item">
+                        <div class="journey-meta">2019 - 2023 &middot; Osaka, Japan</div>
+                        <h3>ICT Coordinator &amp; Network Manager, Osaka YMCA International School</h3>
+                        <p>Stood up the technology for an entire new high school campus - network, CCTV, classroom tech, device management across five operating systems - and built the behaviour and medical data reporting the school ran on.</p>
+                    </li>
+                    <li class="journey-item">
+                        <div class="journey-meta">2023 - present &middot; Singapore</div>
+                        <h3>Technology &amp; Innovation Coordinator, Singapore American School</h3>
+                        <p>Arrived here through IT infrastructure and privacy &amp; governance. Now working on how technology changes what teaching and learning can actually look like.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- What I'm Building -->
+        <section class="section" id="section-6">
+            <div class="full-width-section">
+                <h2 class="section-title" style="text-align: center; margin-bottom: 20px;">What I'm Building</h2>
+                <p class="section-text" style="text-align: center; font-size: 1.2rem;">Two halves of the same question - one inside a school, one across a continent.</p>
+
+                <div class="work-columns">
+                    <div class="work-column">
+                        <h3>Singapore American School</h3>
+                        <ul class="work-list">
+                            <li>
+                                <strong>AI tooling for educators</strong>
+                                <span>Introducing tools that can recall and synthesise information instantly - which is exactly what makes the assessment question urgent.</span>
+                            </li>
+                            <li>
+                                <strong>The Toddle transition</strong>
+                                <span>Moving how we plan, document and report on learning, which means deciding what is worth capturing in the first place.</span>
+                            </li>
+                            <li>
+                                <strong>Educator Eval &amp; the Digital Toolkit</strong>
+                                <span>Platforms for evaluation, growth conversations, shared tools, and a single place for institutional knowledge to live.</span>
+                            </li>
+                            <li>
+                                <strong>Privacy &amp; governance</strong>
+                                <span>The groundwork before any of this: student data handled properly, systems that hold up to scrutiny.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="work-column">
+                        <h3>Nyuchi Africa</h3>
+                        <ul class="work-list">
+                            <li>
+                                <strong><a href="https://learning.nyuchi.com" target="_blank" rel="noopener">Nyuchi Learning</a></strong>
+                                <span>Open-source K-12 digital transformation frameworks, built for African schools.</span>
+                            </li>
+                            <li>
+                                <strong><a href="https://lingo.nyuchi.com" target="_blank" rel="noopener">Nyuchi Lingo</a></strong>
+                                <span>A language learning platform for African languages.</span>
+                            </li>
+                            <li>
+                                <strong><a href="https://mukoko.com" target="_blank" rel="noopener">Mukoko</a> &amp; <a href="https://news.mukoko.com" target="_blank" rel="noopener">Mukoko News</a></strong>
+                                <span>A privacy-focused social platform, and pan-African news aggregated from trusted regional sources.</span>
+                            </li>
+                            <li>
+                                <strong><a href="https://nhimbe.com" target="_blank" rel="noopener">Nhimbe</a></strong>
+                                <span>Community events and gatherings - named for the Shona tradition of working a field together.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="text-align: center; margin-top: 50px; font-size: 1.15rem;">
+                    The Nyuchi work was built for places where credentials were never the thing that got you through. That is the same instinct I bring to the work at school.
+                </div>
             </div>
         </section>
 
         <!-- The Conceptual Age -->
-        <section class="section" id="section-5">
+        <section class="section" id="section-7">
             <div class="full-width-section">
                 <h2 class="section-title" style="text-align: center; margin-bottom: 30px;">The Conceptual Age</h2>
                 <p class="section-text" style="text-align: center; font-size: 1.3rem; margin-bottom: 50px;"><span class="daniel-pink-link" onclick="openDanielPinkPopup()">Daniel Pink</span> calls this the <strong>"Conceptual Age"</strong> - where the skills that drove success in Zimbabwe become the skills that drive success everywhere...</p>
@@ -803,7 +1088,7 @@
         </section>
 
         <!-- Questions & Discussion -->
-        <section class="section" id="section-6">
+        <section class="section" id="section-8">
             <div class="full-width-section">
                 <h2 class="section-title" style="text-align: center; margin-bottom: 30px;">Let's Explore Together</h2>
                 <p class="section-text" style="text-align: center; font-size: 1.2rem; margin-bottom: 50px;">This connects directly to our equity framework, particularly: <em>"What assumptions are we making about students, and how can we challenge those assumptions?"</em></p>
@@ -842,34 +1127,89 @@
             </div>
         </section>
 
+        <footer class="page-footer">
+            <p>
+                By <a href="https://bryanfawcett.com" target="_blank" rel="noopener">Bryan Fawcett</a> &mdash;
+                Technology &amp; Innovation Coordinator, Singapore American School, and founder of
+                <a href="https://nyuchi.com" target="_blank" rel="noopener">Nyuchi Africa</a>.
+            </p>
+            <p style="margin-top: 16px;">
+                The extended write-up, with more on the work behind this talk, lives at
+                <a href="https://bryanfawcett.com/origins-with-perspective" target="_blank" rel="noopener">bryanfawcett.com/origins-with-perspective</a>.
+            </p>
+            <p style="margin-top: 16px;">
+                Have a perspective to add? <a href="mailto:bryan@nyuchi.com">bryan@nyuchi.com</a>
+            </p>
+        </footer>
+
     </div>
 
     <script>
         // Loading Screen Management
-        window.addEventListener('load', function() {
-            const loadingScreen = document.getElementById('loadingScreen');
-            // Add slight delay to ensure all images are processed
-            setTimeout(() => {
+        const MINIMUM_DISPLAY_TIME = 1000;  // show the loading screen for at least this long
+        const MAXIMUM_DISPLAY_TIME = 4000;  // never trap the reader behind it
+
+        const dismissLoadingScreen = (() => {
+            let dismissed = false;
+
+            return () => {
+                if (dismissed) return;
+                dismissed = true;
+
+                const loadingScreen = document.getElementById('loadingScreen');
+                if (!loadingScreen) return;
+
                 loadingScreen.classList.add('fade-out');
-                // Remove from DOM after transition
                 setTimeout(() => {
                     loadingScreen.style.display = 'none';
                 }, 500);
-            }, 1000); // Show loading for at least 1 second
+            };
+        })();
+
+        // Normal path: everything has loaded.
+        window.addEventListener('load', () => {
+            setTimeout(dismissLoadingScreen, MINIMUM_DISPLAY_TIME);
         });
+
+        // Fallback: a slow or unreachable image must not hold the page hostage,
+        // because `load` only fires once every subresource has settled.
+        setTimeout(dismissLoadingScreen, MAXIMUM_DISPLAY_TIME);
 
         // Optimized Intersection Observer for scroll animations
         let sectionObserver, contentObserver;
+
+        // Build one navigation dot per section so the two can never drift apart
+        const buildScrollDots = () => {
+            const indicator = document.getElementById('scrollIndicator');
+            const sections = document.querySelectorAll('.section');
+            if (!indicator) return;
+
+            sections.forEach((section, index) => {
+                const dot = document.createElement('button');
+                dot.type = 'button';
+                dot.className = index === 0 ? 'scroll-dot active' : 'scroll-dot';
+                dot.dataset.section = String(index);
+
+                const heading = section.querySelector('.section-title, .hero-title');
+                const label = heading ? heading.textContent.trim() : `Section ${index + 1}`;
+                dot.setAttribute('aria-label', `Go to ${label}`);
+
+                indicator.appendChild(dot);
+            });
+        };
 
         const initializeObservers = () => {
             const sections = document.querySelectorAll('.section');
             const scrollDots = document.querySelectorAll('.scroll-dot');
             const contentBoxes = document.querySelectorAll('.content-box');
 
+            // threshold 0: a section taller than the viewport can never reach a
+            // meaningful intersection ratio, so tall sections would otherwise
+            // stay at opacity 0 on small screens and never reveal.
             const observerOptions = {
                 root: null,
                 rootMargin: '-10% 0px -10% 0px',
-                threshold: 0.2
+                threshold: 0
             };
 
             // Single observer for sections with scroll indicator update
@@ -903,12 +1243,14 @@
 
         // Optimized smooth scroll for navigation dots
         const initializeNavigation = () => {
+            const sections = document.querySelectorAll('.section');
             const scrollDots = document.querySelectorAll('.scroll-dot');
+
             scrollDots.forEach((dot, index) => {
                 dot.addEventListener('click', () => {
-                    const targetSection = document.getElementById(`section-${index}`);
+                    const targetSection = sections[index];
                     if (targetSection) {
-                        targetSection.scrollIntoView({ 
+                        targetSection.scrollIntoView({
                             behavior: 'smooth',
                             block: 'start'
                         });
@@ -980,6 +1322,7 @@
         // Initialize everything when DOM is ready
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize all components
+            buildScrollDots();
             initializeObservers();
             initializeNavigation();
             initializePopup();
