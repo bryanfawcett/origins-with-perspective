@@ -22,9 +22,6 @@ in step when the content changes.
 ├── src/
 │   └── pages/
 │       └── index.astro                 # Main presentation
-├── .github/
-│   └── workflows/
-│       └── deploy.yml                  # GitHub Actions deployment
 ├── worker.js                           # Cloudflare Worker with iframe support
 ├── wrangler.toml                       # Cloudflare Workers configuration
 ├── package.json                        # Dependencies and scripts
@@ -46,7 +43,7 @@ in step when the content changes.
   can never drift out of sync — add a section and the navigation follows
 - **SEO & Sharing**: Canonical URL, Open Graph and Twitter card metadata
 - **Iframe Embedding**: Embedded on bryanfawcett.com and usable in other sites
-- **Automated Deployment**: GitHub Actions → Cloudflare Workers pipeline
+- **Automated Deployment**: Cloudflare's GitHub app deploys on every push to `main`
 
 ## 🧞 Commands
 
@@ -62,13 +59,17 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check`|
 | `npm run astro -- --help` | Get help using the Astro CLI                    |
 
-## � Deployment
+## 🚀 Deployment
 
-This project uses **automated GitHub Actions deployment** to Cloudflare Workers:
+Cloudflare's GitHub app deploys the Worker — connected directly to this repo, building
+and deploying on every push to `main`. The repo has no deploy workflow of its own;
+an earlier `.github/workflows/deploy.yml` duplicated the same job with a repo-secret
+token, which meant two systems racing to deploy the same Worker. Removed rather than
+fixed, once the Cloudflare app connection was set up properly.
 
 1. **Local Development**: Run `npm run dev` to develop locally
-2. **Commit & Push**: `git add .`, `git commit -m "Your message"`, `git push origin main`  
-3. **Automatic Deploy**: GitHub Actions builds and deploys to Cloudflare Workers
+2. **Commit & Push**: `git add .`, `git commit -m "Your message"`, `git push origin main`
+3. **Automatic Deploy**: Cloudflare's GitHub app builds and deploys the Worker
 4. **Live Site**: Available at https://origins-with-perspective.nyuchi.workers.dev
 
 ### Manual Build (Local Testing Only)
@@ -106,4 +107,4 @@ See `embed-example.html` for a complete example.
 - **Styling**: CSS is included in the Astro component
 - **Background**: Replace `public/african-savanna-background.jpg` for different imagery
 - **Worker Config**: Modify `worker.js` for Cloudflare Workers behavior
-- **Deployment**: Update `.github/workflows/deploy.yml` for CI/CD changes
+- **Deployment**: Configured in the Cloudflare dashboard (Workers Builds), not in this repo
