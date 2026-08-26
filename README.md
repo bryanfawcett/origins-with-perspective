@@ -1,8 +1,17 @@
-# Origins: A Zimbabwe Perspective
+# Origins with a Perspective on Human Potential
 
-An educational presentation about learning approaches in Zimbabwe, built with Astro and deployed on Cloudflare Workers.
+A talk on equity and the assumptions we make in learning — what growing up in Zimbabwe
+taught me about measuring capability instead of credentials, and how that shapes the
+technology work I do now. Built with Astro and deployed on Cloudflare Workers.
 
-🌍 **Live Site**: https://origins-with-perspective.nyuchi.workers.dev
+📖 **Canonical page**: https://bryanfawcett.com/origins-with-perspective
+🌍 **Standalone presentation**: https://origins-with-perspective.nyuchi.workers.dev
+
+The presentation here is the deck as it was delivered. The canonical page on
+[bryanfawcett.com](https://bryanfawcett.com) carries the same argument with more
+context — the full career path behind it, the current work at Singapore American
+School and across the Nyuchi Africa ecosystem — and embeds this deck. Keep the two
+in step when the content changes.
 
 ## 🚀 Project Structure
 
@@ -26,10 +35,17 @@ An educational presentation about learning approaches in Zimbabwe, built with As
 
 ## ✨ Features
 
-- **Interactive Presentation**: Educational content about learning methodologies in Zimbabwe
-- **African Savanna Background**: Beautiful imagery of African students learning
+- **Interactive Presentation**: Nine scroll-driven sections, from Zimbabwe origins to the
+  questions the talk leaves open
+- **Context Sections**: "The Path Here" (Zimbabwe → South Africa → Japan → Singapore) and
+  "What I'm Building" (Singapore American School + Nyuchi Africa)
+- **Daniel Pink Popup**: In-place summary of *A Whole New Mind* and the Conceptual Age
+- **African Savanna Background**: Imagery of African students learning
 - **Loading Screen**: Zimbabwe-themed branding with flag colors
-- **Iframe Embedding**: Can be embedded in other websites
+- **Generated Section Navigation**: Dots are built from the sections on the page, so the two
+  can never drift out of sync — add a section and the navigation follows
+- **SEO & Sharing**: Canonical URL, Open Graph and Twitter card metadata
+- **Iframe Embedding**: Embedded on bryanfawcett.com and usable in other sites
 - **Automated Deployment**: GitHub Actions → Cloudflare Workers pipeline
 
 ## 🧞 Commands
@@ -84,7 +100,9 @@ See `embed-example.html` for a complete example.
 
 ## 📁 Development
 
-- **Main Content**: Edit `src/pages/index.astro` for presentation content
+- **Main Content**: Edit `src/pages/index.astro` for presentation content. Sections are plain
+  `<section class="section" id="section-N">` blocks — add one and the navigation dots pick it
+  up automatically; keep the `section-N` ids sequential
 - **Styling**: CSS is included in the Astro component
 - **Background**: Replace `public/african-savanna-background.jpg` for different imagery
 - **Worker Config**: Modify `worker.js` for Cloudflare Workers behavior
