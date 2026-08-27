@@ -1,11 +1,19 @@
 name = "origins-with-perspective"
-main = "worker.js"
-compatibility_date = "2025-08-30"
+compatibility_date = "2026-08-26"
 
-# Static assets configuration for Wrangler 4.x
+# An assets-only Worker: every route is prerendered, so there is no `main`.
+#
+# There used to be a worker.js here whose whole job was to strip
+# X-Frame-Options and set `frame-ancestors *` so the deck could be embedded.
+# It never ran on the deck: static assets are matched before the Worker
+# script, so it only executed on paths that were not assets — 404s — where
+# framing headers do nothing. The policy now lives in public/_headers, which
+# the asset layer reads directly and which actually applies.
+# `not_found_handling` is left at its default: this deck is a single page and
+# has no 404.html for the asset layer to serve, so setting it would only imply
+# a page that does not exist.
 [assets]
 directory = "./dist"
-binding = "ASSETS"
 
 # GitHub repository integration
 # Cloudflare's GitHub app deploys this Worker directly on push to main.
