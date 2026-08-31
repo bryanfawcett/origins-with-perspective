@@ -106,7 +106,7 @@
 
         .hero-subtitle {
             font-size: 1.8rem;
-            color: #7f8c8d;
+            color: #4d5657;
             margin-bottom: 40px;
             font-weight: 300;
         }
@@ -270,7 +270,7 @@
 
         .capability-card p {
             font-size: 1.1rem;
-            color: #5a6c7d;
+            color: #3f4d59;
             line-height: 1.7;
         }
 
@@ -308,7 +308,7 @@
 
         .question-card p {
             font-size: 1.1rem;
-            color: #5a6c7d;
+            color: #3f4d59;
             line-height: 1.7;
         }
 
@@ -374,7 +374,7 @@
             font-size: 0.95rem;
             letter-spacing: 0.5px;
             text-transform: uppercase;
-            color: #7f8c8d;
+            color: #4d5657;
             margin-bottom: 6px;
         }
 
@@ -387,7 +387,7 @@
 
         .journey-item p {
             font-size: 1.1rem;
-            color: #5a6c7d;
+            color: #3f4d59;
             line-height: 1.7;
         }
 
@@ -402,7 +402,7 @@
             font-size: 1.1rem;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            color: #7f8c8d;
+            color: #4d5657;
             font-weight: 600;
             margin-bottom: 24px;
         }
@@ -442,7 +442,7 @@
 
         .work-list span {
             font-size: 1.05rem;
-            color: #5a6c7d;
+            color: #3f4d59;
             line-height: 1.6;
         }
 
@@ -467,12 +467,23 @@
 
         .page-footer p {
             font-size: 1.1rem;
-            color: #5a6c7d;
+            color: #3f4d59;
             line-height: 1.8;
         }
 
+        /*
+         * The Zimbabwe green, darkened — and only here.
+         *
+         * #00A651 is the flag's green and it draws thirteen other things on
+         * this page: the strip, the quote borders, the card rules, the avatar
+         * ring. All of those are marks, and a mark's contrast floor is Lc 45,
+         * which it clears. A link is read, and its floor is Lc 75 — as the
+         * brand green it measured Lc 52.5, needing 26px for a 17.6px line. So
+         * the mark keeps the brand colour and the text takes a darker cut of
+         * the same hue.
+         */
         .page-footer a {
-            color: #00A651;
+            color: #046c36;
             font-weight: 500;
             text-decoration: none;
             border-bottom: 2px solid rgba(0, 166, 81, 0.35);
@@ -599,7 +610,7 @@
 
         .popup-subtitle {
             font-size: 1.1rem;
-            color: #7f8c8d;
+            color: #4d5657;
             margin-bottom: 30px;
             font-style: italic;
         }
@@ -875,7 +886,13 @@
         </div>
     </div>
 
-    <div class="container">
+    <!--
+      A <main>, not a <div>. The deck's twelve sections were the whole of the
+      page's content and none of it sat in a landmark, so a screen reader had
+      no way to skip the loading screen, the flag strip and the popup to reach
+      the talk. `.container` is a class selector, so the styling is untouched.
+    -->
+    <main class="container">
         
         <!-- Hero Section -->
         <section class="section hero-section visible" id="section-0">
@@ -932,7 +949,7 @@
                     <div class="highlight-box">
                         Scholars were evaluated based on their ability to contribute new knowledge, engage in meaningful discourse, and solve complex problems - not on their capacity for simple memorization under artificial constraints.
                     </div>
-                    <p class="section-text" style="color: #e74c3c; font-weight: 500;">When did we shift from cultivating intellectual excellence to measuring test-taking ability? When did we begin filtering our most promising minds based on their performance in artificial, high-pressure situations rather than their capacity for deep thinking?</p>
+                    <p class="section-text" style="color: #b03024; font-weight: 500;">When did we shift from cultivating intellectual excellence to measuring test-taking ability? When did we begin filtering our most promising minds based on their performance in artificial, high-pressure situations rather than their capacity for deep thinking?</p>
                 </div>
                 <div class="image-container">
                     <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Historic Library">
@@ -1095,22 +1112,22 @@
                 
                 <div class="question-grid">
                     <div class="question-card">
-                        <h4>👁️ Different Perspectives</h4>
+                        <h3>👁️ Different Perspectives</h3>
                         <p>What might we discover about how different minds demonstrate understanding? How do cultural backgrounds shape what we recognize as intelligence?</p>
                     </div>
                     
                     <div class="question-card">
-                        <h4>🌍 Cultural Lens</h4>
+                        <h3>🌍 Cultural Lens</h3>
                         <p>How do different backgrounds shape what we see as "intelligence"? What valuable ways of knowing might we be overlooking?</p>
                     </div>
                     
                     <div class="question-card">
-                        <h4>🚧 Hidden Barriers</h4>
+                        <h3>🚧 Hidden Barriers</h3>
                         <p>Could our assessment methods create unintended barriers? Are there brilliant minds we're filtering out before we recognize their potential?</p>
                     </div>
                     
                     <div class="question-card">
-                        <h4>✨ Strategic Alignment</h4>
+                        <h3>✨ Strategic Alignment</h3>
                         <p>How might we better showcase our seven capabilities through tools like Toddle? What opportunities exist to capture learning in new ways?</p>
                     </div>
                 </div>
@@ -1126,23 +1143,22 @@
                 <p class="section-text" style="margin-top: 30px; font-style: italic;">Thank you for this journey of discovery!</p>
             </div>
         </section>
+    </main>
 
-        <footer class="page-footer">
-            <p>
-                By <a href="https://bryanfawcett.com" target="_blank" rel="noopener">Bryan Fawcett</a> &mdash;
-                Technology &amp; Innovation Coordinator, Singapore American School, and founder of
-                <a href="https://nyuchi.com" target="_blank" rel="noopener">Nyuchi Africa</a>.
-            </p>
-            <p style="margin-top: 16px;">
-                The extended write-up, with more on the work behind this talk, lives at
-                <a href="https://bryanfawcett.com/origins-with-perspective" target="_blank" rel="noopener">bryanfawcett.com/origins-with-perspective</a>.
-            </p>
-            <p style="margin-top: 16px;">
-                Have a perspective to add? <a href="mailto:bryan@nyuchi.com">bryan@nyuchi.com</a>
-            </p>
-        </footer>
-
-    </div>
+    <footer class="page-footer">
+        <p>
+            By <a href="https://bryanfawcett.com" target="_blank" rel="noopener">Bryan Fawcett</a> &mdash;
+            Technology &amp; Innovation Coordinator, Singapore American School, and founder of
+            <a href="https://nyuchi.com" target="_blank" rel="noopener">Nyuchi Africa</a>.
+        </p>
+        <p style="margin-top: 16px;">
+            The extended write-up, with more on the work behind this talk, lives at
+            <a href="https://bryanfawcett.com/origins-with-perspective" target="_blank" rel="noopener">bryanfawcett.com/origins-with-perspective</a>.
+        </p>
+        <p style="margin-top: 16px;">
+            Have a perspective to add? <a href="mailto:bryan@nyuchi.com">bryan@nyuchi.com</a>
+        </p>
+    </footer>
 
     <script>
         // Loading Screen Management
