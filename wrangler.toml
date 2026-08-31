@@ -15,6 +15,17 @@ compatibility_date = "2026-08-26"
 [assets]
 directory = "./dist"
 
+# The deck is one page: a request for anything else should say so rather than
+# be served the talk. `404-page` needs a 404.html in the asset tree, which a
+# single-page build has no reason to emit, so `none` is the honest setting —
+# the asset layer returns a plain 404 and nothing pretends otherwise.
+not_found_handling = "none"
+
+# On, as on bryanfawcett-site: without it a Worker that starts failing does so
+# invisibly.
+[observability]
+enabled = true
+
 # GitHub repository integration
 # Cloudflare's GitHub app deploys this Worker directly on push to main.
 # Repository: https://github.com/bryanfawcett/origins-with-perspective

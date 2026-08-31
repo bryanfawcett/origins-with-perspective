@@ -1,0 +1,246 @@
+---
+/**
+ * The deck shell: the sheet, the rail, and the machinery that makes a set of
+ * sections behave like slides.
+ *
+ * The old deck was a continuous scroll — nine full-height sections with a
+ * fade-in observer, so it read as a long page that happened to be broken into
+ * screens. This is a deck. One slide is on screen at a time, and moving between
+ * them is a discrete step, not a scroll position.
+ *
+ * How it degrades matters as much as how it works:
+ *
+ * - **Without JavaScript every slide is visible, stacked.** The `.no-js` class
+ *   is on `<html>` from the start and the first thing the module does is remove
+ *   it, so a reader who never gets the script gets the whole talk as a page —
+ *   which is exactly what it was before, and a perfectly good fallback.
+ * - **Printing gets the same stacked layout,** so "print to PDF" produces
+ *   handouts rather than one slide and eight blanks.
+ * - **A slide taller than the viewport scrolls inside itself.** Some of these
+ *   carry six journey stops; on a phone that does not fit, and clipping it
+ *   would lose the content rather than paginate it.
+ * - **`prefers-reduced-motion` drops the transition,** leaving the step.
+ */
+import { tokensToCss } from '../brand/tokens.js';
+import { MINERALS } from '../brand/minerals.js';
+import { SLIDES } from '../data/slides.js';
+import '../styles/fonts.css';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const canonical = 'https://origins-with-perspective.nyuchi.workers.dev/';
+---
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <style is:global set:html={tokensToCss()}></style>
+  </head>
+
+  <body>
+    <!--
+      The sheet, and the ruling over it. Absolute rather than fixed, as on
+      bryanfawcett.com: a ground that slides under the content as you move is
+      the one thing paper never does.
+    -->
+    <div class="sheet-ground" aria-hidden="true"></div>
+    <div class="blueprint" aria-hidden="true"></div>
+
+    <!-- The brand signature: seven segments, one per mineral, down the edge. -->
+    <div class="mineral-rail" aria-hidden="true">
+      {MINERALS.map((m) => <span style={`background: var(--mineral-${m.name})`} />)}
+    </div>
+
+    <a class="skip-link" href="#deck">Skip to the talk</a>
+
+    <main class="deck" id="deck">
+      <slot />
+    </main>
+
+    <!--
+      The controls. A real nav landmark with real buttons, not a decorative dot
+      strip: this is how the deck is driven, so it has to be reachable by tab
+      and announced as what it is.
+    -->
+    <nav class="controls" aria-label="Slides">
+      <button class="controls__step" type="button" data-step="-1" aria-label="Previous slide">
+        <span aria-hidden="true">←</span>
+      </button>
+
+      <ol class="controls__marks">
+        {
+          SLIDES.map((s, i) => (
+            <li>
+              <button
+                type="button"
+                class="controls__mark"
+                data-go={i}
+                style={`--mineral: var(--mineral-${s.mineral})`}
+                aria-label={`Slide ${i + 1} of ${SLIDES.length}: ${s.title}`}
+              >
+                <span class="controls__tip" aria-hidden="true">{s.title}</span>
+              </button>
+            </li>
+          ))
+        }
+      </ol>
+
+      <button class="controls__step" type="button" data-step="1" aria-label="Next slide">
+        <span aria-hidden="true">→</span>
+      </button>
+
+      <p class="controls__count">
+        <span data-current-slide>1</span><span class="controls__of">/</span>{SLIDES.length}
+      </p>
+    </nav>
+
+    <!--
+      Announced to a screen reader on every move. The slides themselves are
+      inert to assistive tech while hidden (`hidden` + `inert`), so without this
+      a move would be silent.
+    -->
+    <p class="visually-hidden" role="status" aria-live="polite" data-announce></p>
+
+    <script>
+      /*
+       * The deck driver.
+       *
+       * `hidden` rather than `display: none` in CSS, and `inert` alongside it:
+       * a slide that is off screen must not be reachable by tab or readable by
+       * a screen reader, and `hidden` alone does not stop focus in every
+       * engine. `inert` does, and it is the attribute that means this.
+       */
+      const html = document.documentElement;
+      html.classList.remove('no-js');
+
+      const slides = [...document.querySelectorAll<HTMLElement>('.slide')];
+      const marks = [...document.querySelectorAll<HTMLButtonElement>('.controls__mark')];
+      const counter = document.querySelector<HTMLElement>('[data-current-slide]');
+      const announce = document.querySelector<HTMLElement>('[data-announce]');
+      const deck = document.querySelector<HTMLElement>('.deck');
+
+      /* The hash is the address of a slide, so a link into the talk lands on
+       * the right one and the back button walks the deck. 1-based: `#1` is the
+       * first slide, because that is what a reader would guess. */
+      const fromHash = () => {
+        const n = Number.parseInt(location.hash.slice(1), 10);
+        return Number.isFinite(n) ? Math.min(Math.max(n - 1, 0), slides.length - 1) : 0;
+      };
+
+      let index = fromHash();
+
+      function show(next: number, { push = true, moved = true } = {}) {
+        const before = index;
+        index = Math.min(Math.max(next, 0), slides.length - 1);
+        moved = moved && index !== before;
+
+        slides.forEach((s, i) => {
+          const on = i === index;
+          s.hidden = !on;
+          s.toggleAttribute('inert', !on);
+          if (on) s.scrollTop = 0;
+        });
+
+        marks.forEach((m, i) => {
+          m.classList.toggle('is-current', i === index);
+          /* `aria-current` is the one that carries meaning; the class is paint. */
+          if (i === index) m.setAttribute('aria-current', 'true');
+          else m.removeAttribute('aria-current');
+        });
+
+        if (counter) counter.textContent = String(index + 1);
+        if (announce) {
+          const title = slides[index]?.dataset['title'] ?? '';
+          announce.textContent = `Slide ${index + 1} of ${slides.length}. ${title}`;
+        }
+        if (push && location.hash !== `#${index + 1}`) {
+          history.replaceState(null, '', `#${index + 1}`);
+        }
+
+        /*
+         * Move focus onto the slide that is now showing.
+         *
+         * Without this, focus stays on whichever control was clicked while the
+         * content around it changes completely — so a screen reader is left
+         * reading a button on a slide nobody is looking at, and a keyboard user
+         * cannot scroll the slide they just moved to. `preventScroll` because
+         * the slide is a fixed frame; letting the browser scroll to it would
+         * move the frame itself.
+         */
+        if (moved) slides[index]?.focus({ preventScroll: true });
+      }
+
+      const step = (by: number) => show(index + by);
+
+      document.addEventListener('keydown', (e) => {
+        /* Never steal a key from someone typing, or from a modifier chord. */
+        const t = e.target as HTMLElement | null;
+        if (t?.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t?.tagName ?? '')) return;
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+        switch (e.key) {
+          case 'ArrowRight':
+          case 'PageDown':
+            e.preventDefault(); step(1); break;
+          case ' ':
+            /* Space pages forward, Shift+Space back — as every presenter
+             * remote and every other deck does. */
+            e.preventDefault(); step(e.shiftKey ? -1 : 1); break;
+          case 'ArrowLeft':
+          case 'PageUp':
+            e.preventDefault(); step(-1); break;
+          case 'Home':
+            e.preventDefault(); show(0); break;
+          case 'End':
+            e.preventDefault(); show(slides.length - 1); break;
+        }
+      });
+
+      for (const b of document.querySelectorAll<HTMLButtonElement>('[data-step]')) {
+        b.addEventListener('click', () => step(Number(b.dataset['step'])));
+      }
+      marks.forEach((m, i) => m.addEventListener('click', () => show(i)));
+
+      window.addEventListener('hashchange', () => show(fromHash(), { push: false }));
+
+      /*
+       * Swipe, but only a deliberate one: 60px of travel, and more horizontal
+       * than vertical, so scrolling a slide that overflows never pages the deck.
+       */
+      let x0 = 0;
+      let y0 = 0;
+      deck?.addEventListener('touchstart', (e) => {
+        const t = e.changedTouches[0];
+        if (t) { x0 = t.clientX; y0 = t.clientY; }
+      }, { passive: true });
+
+      deck?.addEventListener('touchend', (e) => {
+        const t = e.changedTouches[0];
+        if (!t) return;
+        const dx = t.clientX - x0;
+        const dy = t.clientY - y0;
+        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) step(dx < 0 ? 1 : -1);
+      }, { passive: true });
+
+      show(index, { push: false, moved: false });
+    </script>
+  </body>
+</html>
