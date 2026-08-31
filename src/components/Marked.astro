@@ -1,0 +1,52 @@
+---
+/**
+ * A run of copy with some of its phrases lifted to full-strength ink.
+ *
+ * The emphasis is data — `mark: ['Zimbabwe']` on the slide record — rather than
+ * `<strong>` buried in markup, so the copy stays a string a non-developer can
+ * edit and the styling stays in one place.
+ *
+ * Splitting on the phrases rather than replacing into an HTML string is
+ * deliberate: `set:html` on author-supplied copy would make every apostrophe
+ * and ampersand in the talk an escaping question, and this content is full of
+ * both.
+ */
+import type { Lede } from '../data/slides.js';
+
+interface Props {
+  lede: Lede;
+}
+
+const { lede } = Astro.props;
+
+/**
+ * Cut the text into plain and marked runs.
+ *
+ * Longest phrase first, so a mark that contains another does not get shredded
+ * by it — and each phrase is matched once, because marking every occurrence of
+ * a common word would emphasise half the slide.
+ */
+function split(text: string, marks: readonly string[] = []): { text: string; on: boolean }[] {
+  let parts: { text: string; on: boolean }[] = [{ text, on: false }];
+
+  for (const phrase of [...marks].sort((a, b) => b.length - a.length)) {
+    let done = false;
+    parts = parts.flatMap((part) => {
+      if (done || part.on) return part;
+      const at = part.text.indexOf(phrase);
+      if (at < 0) return part;
+      done = true;
+      return [
+        { text: part.text.slice(0, at), on: false },
+        { text: phrase, on: true },
+        { text: part.text.slice(at + phrase.length), on: false },
+      ].filter((p) => p.text !== '');
+    });
+  }
+  return parts;
+}
+
+const runs = split(lede.text, lede.mark);
+---
+
+{runs.map((run) => (run.on ? <em class="marked">{run.text}</em> : run.text))}

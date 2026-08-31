@@ -1,0 +1,685 @@
+/*
+ * The deck's stylesheet.
+ *
+ * One file, as on bryanfawcett.com, and the same two rules that keeps honest:
+ *
+ * - Base rules first, slide rules after, so at equal specificity the slide
+ *   wins — order does the job scoping used to.
+ * - A base rule pairs a class with an element only inside `:where()`.
+ *   `.panel a` at 0-1-1 beats any single class; on the site that shipped a
+ *   white-on-white call to action. `:where()` contributes no specificity, so
+ *   the rule stays a default a class can override by being a class.
+ *
+ * Colour, spacing and type come from `src/brand/tokens.ts` — never a literal.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--sheet);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--stamp);
+  outline-offset: 3px;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ==================== the sheet ==================== */
+
+/*
+ * Matte board, not a lit surface — the radials are held to a quarter of what a
+ * gloss would use and most of the blue is out of them, exactly as on the site.
+ */
+.sheet-ground {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 90% 70% at 18% 10%, var(--ground-lit), transparent 60%),
+    radial-gradient(ellipse 70% 60% at 84% 90%, var(--ground-shade), transparent 65%),
+    var(--sheet);
+}
+
+/*
+ * Paper tooth. On a deck the ground *is* fixed — there is no document to
+ * travel with, because a slide is a fixed frame rather than a scroll.
+ */
+.sheet-ground::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity: 0.38;
+  mix-blend-mode: soft-light;
+}
+
+/*
+ * The ruling, in its own ink. `--rule-*`, never `--ink-*`: those alphas exist
+ * to make line work read, and sharing them is how a grid line ends up brighter
+ * than the text sitting on it.
+ */
+.blueprint {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  mix-blend-mode: plus-lighter;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(var(--rule-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule-minor) 1px, transparent 1px),
+    linear-gradient(var(--rule-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule-major) 1px, transparent 1px);
+  background-size:
+    var(--grid-minor) var(--grid-minor),
+    var(--grid-minor) var(--grid-minor),
+    var(--grid-major) var(--grid-major),
+    var(--grid-major) var(--grid-major);
+  mask-image: radial-gradient(ellipse 120% 100% at 50% 40%, #000 55%, rgb(0 0 0 / 0.3) 100%);
+}
+
+/* The brand signature: seven segments down the binding edge. */
+.mineral-rail {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-start: 0;
+  z-index: 4;
+  width: 6px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mineral-rail > span {
+  flex: 1;
+}
+
+.skip-link {
+  position: fixed;
+  inset-block-start: var(--space-2);
+  inset-inline-start: var(--space-7);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: var(--space-3) var(--space-4);
+  background: var(--sheet-raised);
+  border: 1.5px solid var(--ink);
+  font-family: var(--mono);
+  font-size: var(--label);
+  font-weight: var(--label-weight);
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform 0.2s ease-out;
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}
+
+/* ==================== the deck ==================== */
+
+.deck {
+  position: relative;
+  z-index: 2;
+}
+
+/*
+ * A slide is a fixed frame, and scrolls inside itself when its content will not
+ * fit — some of these carry six journey stops, which on a phone does not, and
+ * clipping would lose the content rather than paginate it.
+ */
+/*
+ * `[hidden]` has to be said explicitly here.
+ *
+ * The UA stylesheet's `[hidden] { display: none }` is the weakest rule in the
+ * cascade, and `.slide { display: grid }` is a class — so it wins, and every
+ * hidden slide renders anyway. Ten slides stacked on top of each other, which
+ * is exactly what the first build did.
+ */
+.slide[hidden] {
+  display: none;
+}
+
+.slide {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-9) var(--space-7) 7rem;
+  animation: slide-in 0.34s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+}
+
+.slide__shell {
+  width: min(64rem, 100%);
+  /*
+   * The dashed column rules, as on the site: the container is part of the
+   * drawing rather than a box on it.
+   */
+  padding-inline: var(--space-6);
+  border-inline: 1px dashed var(--ink-hair);
+}
+
+.slide__shell > * + * {
+  margin-block-start: var(--space-7);
+}
+
+/* The sheet number, notched into the top rule. */
+.fig {
+  font-family: var(--mono);
+  font-size: var(--label);
+  font-weight: var(--label-weight);
+  letter-spacing: 0.24em;
+  color: var(--ink-soft);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  font-family: var(--mono);
+  font-size: var(--label);
+  font-weight: var(--label-weight);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-block-end: var(--space-4);
+}
+
+.eyebrow::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--ink-faint);
+}
+
+/*
+ * The mineral under the heading, never in it: on this ground the seven measure
+ * Lc 25–48 as lettering. The word is ink; the mineral is the rule beneath it.
+ */
+.slide__title {
+  font-size: clamp(2rem, 1.2rem + 3.2vw, 3.25rem);
+  letter-spacing: -0.01em;
+  padding-block-end: var(--space-3);
+  border-block-end: var(--mineral-weight) solid var(--mineral);
+}
+
+.lede {
+  max-width: var(--measure-wide);
+  margin-block-start: var(--space-5);
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  line-height: 1.5;
+  color: var(--ink-body);
+}
+
+.marked {
+  font-style: normal;
+  color: var(--ink);
+}
+
+/*
+ * The dense shapes get a tighter head.
+ *
+ * A journey with six stops and a grid of four cards need the vertical space
+ * that a statement slide can afford to spend on its lede. They still scroll if
+ * they have to — but a slide that has to be scrolled is a slide the room has
+ * stopped reading, so it is worth buying the room back here.
+ */
+.slide[data-kind='journey'] .lede,
+.slide[data-kind='columns'] .lede {
+  max-width: var(--measure);
+  font-size: 1.0625rem;
+  margin-block-start: var(--space-3);
+}
+
+.slide[data-kind='journey'] .slide__shell > * + *,
+.slide[data-kind='columns'] .slide__shell > * + *,
+.slide[data-kind='grid'] .slide__shell > * + * {
+  margin-block-start: var(--space-5);
+}
+
+.slide[data-kind='journey'] .slide__title,
+.slide[data-kind='columns'] .slide__title,
+.slide[data-kind='grid'] .slide__title {
+  font-size: clamp(1.75rem, 1.1rem + 2.4vw, 2.5rem);
+}
+
+/* ---------------------------- title slide ---------------------------- */
+
+.title__display {
+  font-family: var(--display);
+  font-size: clamp(3rem, 1.5rem + 8vw, 7rem);
+  font-weight: 500;
+  line-height: 0.94;
+  letter-spacing: -0.015em;
+}
+
+.title__line {
+  display: block;
+}
+
+/*
+ * Stroked and filled. A hollow outline read as unfinished rather than drafted,
+ * and `color: transparent` is guarded — without the guard a browser lacking
+ * `-webkit-text-stroke` renders the second line invisible rather than solid.
+ */
+.title__line--drafted {
+  color: var(--ink-drafted);
+}
+
+@supports (-webkit-text-stroke: 1px currentColor) {
+  .title__line--drafted {
+    -webkit-text-stroke: 1.5px var(--ink);
+  }
+}
+
+.title__standfirst {
+  margin-block-start: var(--space-6);
+  font-family: var(--mono);
+  font-size: var(--label-lg);
+  font-weight: var(--label-weight);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-block-end: var(--space-3);
+  border-block-end: var(--mineral-weight) solid var(--mineral);
+}
+
+/* ---------------------------- statement ---------------------------- */
+
+.statement {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.pull {
+  max-width: var(--measure-wide);
+  padding-inline-start: var(--space-6);
+  border-inline-start: var(--mineral-weight) solid var(--mineral);
+  font-size: clamp(1.375rem, 1rem + 1.4vw, 1.875rem);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.3;
+}
+
+.statement__p {
+  max-width: var(--measure);
+  color: var(--ink-body);
+  line-height: 1.62;
+}
+
+/* ---------------------------- journey ---------------------------- */
+
+.journey {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-4);
+  border-block-start: 1.5px solid var(--ink);
+  padding-block-start: var(--space-4);
+}
+
+.journey__stop {
+  display: grid;
+  grid-template-columns: 13rem 1fr;
+  gap: var(--space-5);
+  padding-block-end: var(--space-4);
+  border-block-end: 1px solid var(--ink-faint);
+}
+
+.journey__stop:last-child {
+  border-block-end: none;
+  padding-block-end: 0;
+}
+
+.journey__meta {
+  font-family: var(--mono);
+  font-size: var(--label);
+  font-weight: var(--label-weight);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-block-end: var(--space-1);
+  border-block-end: var(--mineral-weight) solid var(--mineral);
+  align-self: start;
+  justify-self: start;
+}
+
+.journey__role {
+  font-size: 1.0625rem;
+}
+
+.journey__detail {
+  margin-block-start: var(--space-1);
+  max-width: var(--measure);
+  color: var(--ink-body);
+  line-height: 1.5;
+}
+
+/* ---------------------------- columns ---------------------------- */
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+  gap: var(--space-7);
+}
+
+.column__head {
+  font-size: 1.25rem;
+  padding-block-end: var(--space-2);
+  border-block-end: var(--mineral-weight) solid var(--mineral);
+}
+
+.column__list {
+  list-style: none;
+  padding: 0;
+  margin-block-start: var(--space-4);
+  display: grid;
+  gap: var(--space-4);
+}
+
+.column__term {
+  display: block;
+  font-weight: 600;
+}
+
+.column__detail {
+  display: block;
+  margin-block-start: var(--space-1);
+  color: var(--ink-body);
+  line-height: 1.55;
+}
+
+.note {
+  max-width: var(--measure);
+  padding: var(--space-5) var(--space-6);
+  background: var(--sheet-wash);
+  border: 1px solid var(--ink-faint);
+  color: var(--ink-body);
+  line-height: 1.6;
+}
+
+/* ---------------------------- cards ---------------------------- */
+
+.cards {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
+  gap: var(--space-4);
+}
+
+.card {
+  padding: var(--space-6);
+  background: var(--sheet-wash);
+  border: 1px solid var(--ink-faint);
+}
+
+.card__head {
+  font-size: 1.1875rem;
+  padding-block-end: var(--space-2);
+  border-block-end: var(--mineral-weight) solid var(--mineral);
+}
+
+.card__detail {
+  margin-block-start: var(--space-4);
+  color: var(--ink-body);
+  line-height: 1.55;
+}
+
+/* ==================== the controls ==================== */
+
+.controls {
+  position: fixed;
+  inset-block-end: 0;
+  inset-inline: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-7);
+  background: var(--sheet-deep);
+  border-block-start: 1px solid var(--ink-faint);
+}
+
+.controls__step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--ink-faint);
+  font-size: 1.125rem;
+  color: var(--ink);
+  transition: border-color 0.2s ease;
+}
+
+.controls__step:hover {
+  border-color: var(--ink);
+}
+
+.controls__marks {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/*
+ * A 44px target with a small visible mark inside it: the dot is 10px, but the
+ * button a finger has to hit is the full minimum. The mark is the mineral —
+ * one of the few places saturated colour appears — and the current one is the
+ * only one at full strength.
+ */
+.controls__mark {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  min-height: 44px;
+}
+
+.controls__mark::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background: var(--mineral);
+  opacity: 0.32;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.controls__mark:hover::after,
+.controls__mark:focus-visible::after {
+  opacity: 0.7;
+}
+
+.controls__mark.is-current::after {
+  opacity: 1;
+  transform: scale(1.5);
+}
+
+/* The slide's name, on hover — a label, so it takes the label floor. */
+.controls__tip {
+  position: absolute;
+  inset-block-end: calc(100% + var(--space-2));
+  left: 50%;
+  translate: -50% 0;
+  white-space: nowrap;
+  padding: var(--space-1) var(--space-3);
+  background: var(--sheet-raised);
+  border: 1px solid var(--ink-faint);
+  font-family: var(--mono);
+  font-size: var(--label);
+  font-weight: var(--label-weight);
+  color: var(--ink);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+.controls__mark:hover .controls__tip,
+.controls__mark:focus-visible .controls__tip {
+  opacity: 1;
+}
+
+.controls__count {
+  font-family: var(--mono);
+  font-size: var(--label);
+  font-weight: var(--label-weight);
+  letter-spacing: 0.16em;
+  color: var(--ink-soft);
+  min-width: 4rem;
+  text-align: end;
+}
+
+.controls__of {
+  margin-inline: 0.35em;
+  color: var(--ink-faint);
+}
+
+/* ==================== narrow ==================== */
+
+@media (max-width: 51rem) {
+  .slide {
+    padding: var(--space-7) var(--space-5) 6rem;
+    place-items: start center;
+  }
+
+  .slide__shell {
+    padding-inline: var(--space-4);
+  }
+
+  .journey__stop {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  /* Below this the dots are smaller than their own targets; the arrows and the
+   * counter are enough to drive the deck, and swipe still works. */
+  .controls__marks {
+    display: none;
+  }
+
+  .controls {
+    justify-content: space-between;
+  }
+}
+
+/* ==================== no JavaScript, and print ==================== */
+
+/*
+ * The whole talk as one page.
+ *
+ * `.no-js` is on `<html>` from the start and the driver's first act is to
+ * remove it, so a reader who never gets the script gets every slide stacked —
+ * which is what the deck was before it was a deck, and a good fallback. The
+ * same rules serve `print`, so "save as PDF" produces handouts rather than one
+ * slide and nine blanks.
+ */
+.no-js .slide,
+.no-js .slide[hidden] {
+  position: static;
+  display: block;
+  min-height: 100dvh;
+}
+
+.no-js .controls {
+  display: none;
+}
+
+@media print {
+  .slide,
+  .slide[hidden] {
+    position: static;
+    display: block;
+    min-height: auto;
+    padding: 0 0 2rem;
+    break-after: page;
+    animation: none;
+  }
+
+  .controls,
+  .sheet-ground,
+  .blueprint,
+  .mineral-rail,
+  .skip-link {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

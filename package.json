@@ -2,16 +2,21 @@
   "name": "origins-with-perspective",
   "type": "module",
   "version": "1.0.0",
-  "description": "Educational presentation about learning approaches in Zimbabwe",
+  "description": "A talk on equity and the assumptions we make in learning \u2014 built as slides on the Mzizi branding layer.",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "build:local": "./build.sh"
+    "build:local": "./build.sh",
+    "check": "astro check"
   },
   "dependencies": {
     "astro": "^7.2.7"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^6.0.3"
   }
 }

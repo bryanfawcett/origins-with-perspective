@@ -1,0 +1,147 @@
+---
+/**
+ * One slide, in whichever of the five shapes its record asks for.
+ *
+ * The shape is data (`kind`), not markup: the talk is a list of records and
+ * this decides how each one is drawn. Adding a slide is a record in
+ * `src/data/slides.ts`; adding a *shape* is a `kind` and a branch here.
+ */
+import { keyedTo } from '../brand/minerals.js';
+import type { Lede, Slide } from '../data/slides.js';
+import Marked from './Marked.astro';
+
+interface Props {
+  slide: Slide;
+  index: number;
+  total: number;
+}
+
+const { slide, index, total } = Astro.props;
+const figure = `${String(index + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
+
+/* Every shape but the title slide opens the same way, so the header is written
+ * once here rather than in each branch. */
+const eyebrow = slide.kind === 'title' ? slide.eyebrow : slide.eyebrow;
+const lede: Lede = slide.lede;
+---
+
+<!--
+  `tabindex="0"` because a slide is its own scroll container.
+
+  Some of these overflow — the journey carries six stops — and a scrollable
+  region that cannot take focus is a region a keyboard user cannot scroll. Only
+  one slide is ever non-inert, so this adds exactly one tab stop, and the deck's
+  own bindings leave ArrowUp/ArrowDown alone precisely so they still scroll it.
+-->
+<section
+  class="slide"
+  tabindex="0"
+  data-kind={slide.kind}
+  data-title={slide.title}
+  style={keyedTo(slide.mineral)}
+  aria-label={`Slide ${index + 1} of ${total}: ${slide.title}`}
+>
+  <div class="slide__shell">
+    <p class="fig">{figure}</p>
+
+    {
+      slide.kind === 'title' ? (
+        <header class="title">
+          <p class="eyebrow">{eyebrow}</p>
+          <h1 class="title__display">
+            <span class="title__line">{slide.display[0]}</span>
+            <span class="title__line title__line--drafted">{slide.display[1]}</span>
+          </h1>
+          <p class="title__standfirst">{slide.standfirst}</p>
+          <p class="lede"><Marked lede={lede} /></p>
+        </header>
+      ) : (
+        <header class="slide__head">
+          <p class="eyebrow">{eyebrow}</p>
+          <h2 class="slide__title">{slide.title}</h2>
+          <p class="lede"><Marked lede={lede} /></p>
+        </header>
+      )
+    }
+
+    {
+      slide.kind === 'statement' && (
+        <div class="statement">
+          {slide.pull && <p class="pull">{slide.pull}</p>}
+          {slide.body?.map((p) => (
+            <p class="statement__p">
+              <Marked lede={p} />
+            </p>
+          ))}
+        </div>
+      )
+    }
+
+    {
+      slide.kind === 'journey' && (
+        <ol class="journey">
+          {slide.stops.map((stop) => (
+            <li class="journey__stop">
+              <p class="journey__meta">
+                {stop.period} &middot; {stop.place}
+              </p>
+              {/* Wrapped: as bare siblings these auto-place into successive
+                  grid cells, so the detail landed back under the date. */}
+              <div class="journey__body">
+                <h3 class="journey__role">{stop.role}</h3>
+                <p class="journey__detail">{stop.detail}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      )
+    }
+
+    {
+      slide.kind === 'columns' && (
+        <>
+          <div class="columns">
+            {slide.columns.map((col) => (
+              <section class="column">
+                <h3 class="column__head">{col.heading}</h3>
+                <ul class="column__list">
+                  {col.items.map((item) => (
+                    <li>
+                      <span class="column__term">
+                        {item.href ? (
+                          <a href={item.href} target="_blank" rel="noopener noreferrer">
+                            {item.term}
+                          </a>
+                        ) : (
+                          item.term
+                        )}
+                      </span>
+                      <span class="column__detail">{item.detail}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+          </div>
+          {slide.note && <p class="note">{slide.note}</p>}
+        </>
+      )
+    }
+
+    {
+      slide.kind === 'grid' && (
+        <>
+          <ul class="cards">
+            {slide.cards.map((card) => (
+              <li class="card">
+                <h3 class="card__head">{card.heading}</h3>
+                <p class="card__detail">{card.detail}</p>
+              </li>
+            ))}
+          </ul>
+          {slide.note && <p class="note">{slide.note}</p>}
+        </>
+      )
+    }
+  </div>
+</section>
