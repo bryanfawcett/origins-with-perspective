@@ -5,7 +5,7 @@ Zimbabwe taught me about measuring capability instead of credentials, and how
 that shapes the technology work I do now.
 
 📖 **Canonical page**: https://bryanfawcett.com/origins-with-perspective
-🌍 **The deck**: https://origins-with-perspective.nyuchi.workers.dev
+🌍 **The deck**: https://origins-deck.bryanfawcett.com
 
 The presentation here is the deck as it was delivered. The canonical page on
 [bryanfawcett.com](https://bryanfawcett.com) carries the same argument with more
