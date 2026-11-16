@@ -1,0 +1,15 @@
+[workspace]
+resolver = "2"
+members = ["crates/deck-site", "crates/deck-client"]
+
+[workspace.package]
+edition = "2024"
+publish = false
+
+[profile.release]
+# The client is a few kilobytes of driver; keep it that way.
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = "debuginfo"
