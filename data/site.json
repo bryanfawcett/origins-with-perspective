@@ -59,8 +59,17 @@
             "detail": "Moving how we plan, document and report on learning, which means deciding what is worth capturing in the first place."
           },
           {
-            "title": "Educator Eval & the Digital Toolkit",
+            "title": "Educator Compass & the Digital Toolkit",
             "detail": "Platforms for evaluation, growth conversations, shared tools, and a single place for institutional knowledge to live."
+          },
+          {
+            "title": "Robotics tournament app",
+            "detail": "An app for judging and grading engineering notebooks at robotics tournaments."
+          },
+          {
+            "title": "CI/CD for the technology team",
+            "detail": "One lint gate required on every repository, release pull requests opened and tagged automatically, and CodeQL and dependency review any repository can switch on.",
+            "href": "https://github.com/sas-technology/.github"
           },
           {
             "title": "Privacy & governance",
