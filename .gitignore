@@ -37,3 +37,6 @@ wrangler.toml.bak
 # OS generated files
 Thumbs.db
 ehthumbs.db
+
+# rust
+target/

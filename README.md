@@ -91,3 +91,29 @@ Cloudflare's GitHub app deploys the Worker on push to `main`. It is an
 assets-only Worker — every route is prerendered, so there is no `main` in
 `wrangler.toml`, and the framing policy lives in `public/_headers` where the
 asset layer actually reads it.
+
+
+## How it is built
+
+The deck is Rust. `crates/deck-site` renders `data/slides.json` to static HTML, and
+`crates/deck-client` is the slide driver, compiled to WebAssembly (keys, swipe, `#N`
+addresses, focus, announcements, fullscreen with `F`, an overview with `O`, a progress
+track). The slides sit on a fixed 16:9 stage that scales to the window, so a slide never
+scrolls on a desktop.
+
+The look is the site's: `./scripts-sync.sh` pulls the design tokens, the Bundu tokens, the
+fonts and the ground from bryanfawcett.com, and the work slides are built from the same
+data as the site's Origins page (`data/site.json`), so the two cannot drift.
+
+```bash
+./build.sh      # build into dist/
+./release.sh    # rebuild and refresh prebuilt/, which Cloudflare deploys
+npm start       # serve dist/ on :4400
+```
+
+Cloudflare's builder is not set up to compile Rust, so the built output is committed in
+`prebuilt/` and the Cloudflare build (`npm run build`) copies it into `dist/`. Run
+`./release.sh` after changing `crates/`, `assets/`, `data/` or `public/`, and commit
+`prebuilt/` with the change.
+
+Published at https://origins-deck.bryanfawcett.com (the workers.dev address also works).

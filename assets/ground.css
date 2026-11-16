@@ -1,0 +1,154 @@
+/* ==================== LAYER 1 — the blueprint ground ==================== */
+
+/*
+ * Absolute over the document, not fixed to the viewport.
+ *
+ * A fixed ground slides underneath the content as you scroll, which is the one
+ * thing paper never does. Absolute means the ruling, the lighting and the
+ * grain all travel with the surfaces drawn on them.
+ */
+.sheet-ground {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /*
+   * The lighting is sized in vh and pinned to the top rather than stretched
+   * over the whole document: a radial sized as a percentage of a 6000px page
+   * is not a fall of light, it is a flat tint.
+   *
+   * The base gradient underneath them is nearly flat now, and deliberately.
+   * It used to run mid -> base -> deep, which with the old ladder meant light
+   * at the top, lighter in the middle and near-black at the foot — a sweep
+   * across the whole page, which is a sheen however subtle the radials over it
+   * are. A matte board is one tone with a slight fall at the far edge.
+   */
+  background:
+    radial-gradient(ellipse 90% 70% at 18% 10%, var(--ground-lit), transparent 60%) top / 100% 140vh
+      no-repeat,
+    radial-gradient(ellipse 42% 30% at 72% 22%, var(--ground-glow), transparent 70%) top / 100%
+      140vh no-repeat,
+    radial-gradient(ellipse 34% 44% at 10% 76%, var(--ground-pool), transparent 70%) bottom / 100%
+      140vh no-repeat,
+    radial-gradient(ellipse 70% 60% at 84% 90%, var(--ground-shade), transparent 65%) bottom / 100%
+      140vh no-repeat,
+    linear-gradient(160deg, var(--sheet) 0%, var(--sheet) 55%, var(--sheet-mid) 100%);
+}
+
+/*
+ * Paper tooth, as fractal noise rather than a bitmap.
+ *
+ * `soft-light` rather than `multiply`: on a dark ground multiply would only
+ * crush the blacks, where soft-light lifts and dips the grain either side of
+ * the base tone, which is what reads as paper.
+ *
+ * Turned up as the lighting radials came down. On a matte board the texture is
+ * the tooth, not the sheen — the grain is now most of what says this is a
+ * surface rather than a fill, so it carries proportionally more of the work.
+ * It is scattered light, so it costs text nothing: measured over the ink mask
+ * it moves the ground by under two values.
+ */
+.sheet-ground::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity: 0.38;
+  mix-blend-mode: soft-light;
+}
+
+/*
+ * Fall-off at the left and right margins only.
+ *
+ * The old inset box-shadow darkened all four edges, which reads as a vignette
+ * on a fixed ground and as a horizontal band every screenful on a scrolling
+ * one. Sides only, so it holds however far you scroll.
+ */
+.sheet-ground::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, var(--ground-vignette), transparent 14%),
+    linear-gradient(270deg, var(--ground-vignette), transparent 14%);
+}
+
+/* ================= LAYER 2 — the ruling, drawn in pale ink ================= */
+
+.blueprint {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  /*
+   * `plus-lighter` rather than `multiply`: on a cyanotype the ruling is lighter
+   * than the ground, so the lines have to add light. Multiply would make them
+   * darker than the sheet and the grid would disappear.
+   */
+  /* plus-lighter on the dark board, multiply on paper (--blend-ground). */
+  mix-blend-mode: var(--blend-ground);
+  /*
+   * The ruling is the ground, not the drawing. Held back so the column rules,
+   * section rules and corner brackets — all of them full-strength ink — stay
+   * the lines the eye follows.
+   *
+   * The lines are painted in `--rule-*`, not `--ink-*`. See RULE in
+   * src/brand/tokens.ts: sharing the ink tokens made every text block that
+   * happened to cross a grid line get scored against the line rather than the
+   * sheet, and a grid line is one pixel of decoration.
+   */
+  opacity: 0.5;
+  background-image:
+    linear-gradient(var(--rule-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule-minor) 1px, transparent 1px),
+    linear-gradient(var(--rule-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule-major) 1px, transparent 1px);
+  background-size:
+    var(--grid-minor) var(--grid-minor),
+    var(--grid-minor) var(--grid-minor),
+    var(--grid-major) var(--grid-major),
+    var(--grid-major) var(--grid-major);
+  /* The ruling fades toward the edges, as ink does on a well-used sheet. */
+  mask-image: radial-gradient(
+    ellipse 120% 100% at 50% 40%,
+    #000 55%,
+    rgb(0 0 0 / 0.5) 80%,
+    rgb(0 0 0 / 0.25) 100%
+  );
+}
+
+/* Faint technical drawings floating behind the content. */
+.schematics {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  /* Merged in from the component's own block, which declared it a second time. */
+  color: var(--ink);
+}
+
+.schematics :where(svg) {
+  position: absolute;
+}
+
+/* Where each decorative drawing sits, and how faintly. */
+.schematics__1 {
+  top: 5%;
+  right: 3%;
+  width: 190px;
+  opacity: 0.13;
+}
+
+.schematics__2 {
+  bottom: 7%;
+  left: 2%;
+  width: 170px;
+  opacity: 0.11;
+}
+
+.schematics__3 {
+  top: 36%;
+  left: -40px;
+  width: 220px;
+  opacity: 0.09;
+}

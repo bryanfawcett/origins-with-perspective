@@ -1,0 +1,650 @@
+/* @bundu/ui — design tokens. GENERATED FILE — DO NOT EDIT.
+
+   Source      tokens/canon.snapshot.json (brand v4.0.31, 2026-07-13)
+   Generator   scripts/generate-tokens.mjs   (`pnpm tokens:build`)
+   Gate        `pnpm tokens:check` fails if this file and the generator disagree
+
+   All 21 colour families of the Mzizi design system under one --color-*
+   namespace: seven minerals, seven heritage tones, seven experimental tones.
+   Plus the nine-step surface ladder, the connectivity status trio, and the
+   semantic (shadcn) contract.
+
+   The hex values do NOT live in a database. Mzizi holds no brand or primitive
+   token data in Supabase or anywhere else — the on-disk source of truth is
+   mzizi-dev/mzizi-registry -> lib/tokens/palette.source.ts (+ brand.source.ts),
+   projected over https://api.mzizi.dev/api/v1/brand and snapshotted into this
+   repo by `pnpm canon:fetch`. (0.1.1's header claimed "they are the DB's
+   source of truth". That was already wrong and is corrected here.)
+
+   PURE custom properties — no @layer, no @apply, no Tailwind — so any site
+   can @import it. Dark mode under both conventions: the .dark class
+   (shadcn/Tailwind) and [data-theme="dark"] (Starlight and friends).
+
+   Tailwind v4 users: import ./theme.css instead, which @imports this file and
+   adds the @theme entrypoint. The v3 preset (./tailwind-preset.mjs) keeps
+   working unchanged. */
+
+:root {
+  /* === Seven African Minerals — the deep-earth + hand families */
+  --color-cobalt: #0047ab; /* Primary blue, links, CTAs */
+  --color-cobalt-container: #e3f2fd;
+  --color-cobalt-on-container: #002966;
+  --color-cobalt-brand: #0047ab; /* The brand fill, both themes */
+  --color-cobalt-on-brand: #e3f2fd;
+
+  --color-tanzanite: #4b0082; /* Purple accent, brand/logo, social features */
+  --color-tanzanite-container: #f3e5f5;
+  --color-tanzanite-on-container: #2e004d;
+  --color-tanzanite-brand: #b388ff; /* The brand fill, both themes */
+  --color-tanzanite-on-brand: #2e004d;
+
+  --color-malachite: #004d40; /* Success states, positive actions */
+  --color-malachite-container: #e0f2f1;
+  --color-malachite-on-container: #00332b;
+  --color-malachite-brand: #64ffda; /* The brand fill, both themes */
+  --color-malachite-on-brand: #00332b;
+
+  --color-gold: #5d4037; /* Achievements, rewards, highlights */
+  --color-gold-container: #fff8e1;
+  --color-gold-on-container: #3e2723;
+  --color-gold-brand: #ffd740; /* The brand fill, both themes */
+  --color-gold-on-brand: #3e2723;
+
+  --color-terracotta: #a0522d; /* Community features, warmth */
+  --color-terracotta-container: #f5e6d3;
+  --color-terracotta-on-container: #5d2906;
+  --color-terracotta-brand: #a0522d; /* The brand fill, both themes */
+  --color-terracotta-on-brand: #f5e6d3;
+
+  --color-sodalite: #283593; /* AI/Shamwari surfaces, deep-reasoning states */
+  --color-sodalite-container: #e8eaf6;
+  --color-sodalite-on-container: #141a5c;
+  --color-sodalite-brand: #283593; /* The brand fill, both themes */
+  --color-sodalite-on-brand: #e8eaf6;
+
+  --color-copper: #bf5a36; /* Bundu ecosystem identity, the commons */
+  --color-copper-container: #fbe4da;
+  --color-copper-on-container: #5c2410;
+  --color-copper-brand: #bf5a36; /* The brand fill, both themes */
+  --color-copper-on-brand: #fbe4da;
+
+  /* === Seven heritage tones — atmospheric anchors. Canon carries light/dark
+     only for these; there is no container step. */
+  /* Twilight surfaces, deep atmosphere, mini-app moods */
+  --color-indigo: #4527a0;
+
+  --color-savanna: #8d6e1a; /* Warm grassland surfaces, daylight atmosphere */
+
+  /* Earthy surfaces, grounded atmosphere, bark tones */
+  --color-baobab: #4e342e;
+
+  --color-sunset: #d84315; /* Warm accent surfaces, golden-hour atmosphere */
+
+  --color-river: #006064; /* Cool surfaces, flowing atmosphere, water tones */
+
+  --color-hematite: #546e7a; /* Neutral anchor, mini-app surfaces, atmosphere */
+
+  /* Light anchor, warm backgrounds, mini-app surfaces */
+  --color-kalahari: #c9b589;
+
+  /* === Seven experimental tones — the computed heptagon (hues offset 17°,
+     prime saturations). `-ui` is the solved interactive step. */
+  --color-ember: #843d20;
+  --color-ember-container: #ebdfdb;
+  --color-ember-on-container: #7a3115;
+  --color-ember-ui: #cd5f33;
+
+  --color-acacia: #4d5615;
+  --color-acacia-container: #e9ebdb;
+  --color-acacia-on-container: #48510e;
+  --color-acacia-ui: #7e8c22;
+
+  --color-fern: #175e17;
+  --color-fern-container: #dbebdb;
+  --color-fern-on-container: #0f570f;
+  --color-fern-ui: #259725;
+
+  --color-lagoon: #165b51;
+  --color-lagoon-container: #dbebe9;
+  --color-lagoon-on-container: #0e554b;
+  --color-lagoon-ui: #249383;
+
+  --color-storm: #284ca6;
+  --color-storm-container: #dbe0eb;
+  --color-storm-on-container: #1a409b;
+  --color-storm-ui: #577bd6;
+
+  --color-dusk: #742aad;
+  --color-dusk-container: #e4dbeb;
+  --color-dusk-on-container: #661b9e;
+  --color-dusk-ui: #a35dd8;
+
+  --color-protea: #932464;
+  --color-protea-container: #ebdbe4;
+  --color-protea-on-container: #841656;
+  --color-protea-ui: #d34998;
+
+  /* === Nine-step surface ladder, shallow to deep. Prime steps P2..P17. */
+  --pitch: #fafafa; /* Deepest surface — media wells, splash (prime step P2) */
+  --void: #f8f8f7; /* App shell behind base (prime step P3) */
+  --base: #f3f3f1; /* Page background — ambient base surface (prime step P5) */
+  --surface: #eeeeec; /* Card / panel surface (prime step P7) */
+  /* Neutral containers, grouped content (prime step P11) */
+  --container: #e5e4e1;
+  --overlay: #e0dfdc; /* Overlays and dialogs (prime step P13) */
+  /* Raised elements above overlay — menus, toasts (prime step P17) */
+  --raised: #d6d5d1;
+  --scrim: rgba(0, 0, 0, 0.4); /* Semi-transparent backdrop behind overlays */
+  /* Cover-colour page wash — surface tinted with the active brand accent (~7%
+     light / ~12% dark) */
+  --wash: color-mix(in oklab, var(--surface) 93%, var(--brand-accent));
+  /* Deepest fill — inset sections, metadata rows, maximum text contrast. Canon
+     calls this background "muted"; the shadcn semantic --muted already owns
+     that name below. */
+  --surface-muted: #faf9f5;
+
+  /* === Per-app brand mineral. --wash mixes it into --surface; the brand-*.css
+     overlays repoint it alongside --primary. */
+  /* Per-app/per-context saturated brand mineral for accent fills and CTAs.
+     Defaults to tanzanite — the Mukoko/Nyuchi brand mineral. Swappable per app
+     or per-event/category (Mukoko Events). Distinct from the semantic --accent
+     (a pale container for hover/selected states). */
+  --brand-accent: #4b0082;
+  --brand-accent-foreground: #ffffff;
+
+  /* === Connectivity status trio. */
+  --syncing: #1c5962; /* In-progress sync / pending state */
+  --offline: #674c32; /* Offline / disconnected state */
+  --neutral: #55514b; /* Neutral / inactive status, secondary data series */
+
+  /* === Semantic tokens — the shadcn/Tailwind contract. */
+  /* Canon `base`. Was #faf9f4 / #100f0e before 0.2.0 — drift fixes 1 and 2. */
+  --background: var(--base);
+  --canvas: var(--background);
+  --foreground: #1a1a17;
+  --ink: var(--foreground);
+  /* Dark was #1a1917 before 0.2.0 — drift fix 3. Light stays white: a marketing
+     card floats above the base by design. */
+  --card: #ffffff;
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--card-foreground);
+  /* Drift fix 6. Canon: "Cobalt is the exceptional mineral for links/info only
+     — do not use it as --primary." Every brand-*.css overlay repoints this;
+     tanzanite is the unbranded default. */
+  --primary: var(--color-tanzanite);
+  --primary-foreground: #ffffff;
+  /* Light was #f4f2ec before 0.2.0 — drift fix 5. */
+  --secondary: var(--container);
+  --secondary-foreground: var(--foreground);
+  --muted: var(--container); /* Light was #f4f2ec before 0.2.0 — drift fix 4. */
+  --muted-foreground: #5d5c57;
+  --accent: var(--color-cobalt-container);
+  --accent-foreground: var(--color-cobalt-on-container);
+  --destructive: #b3261e;
+  --destructive-foreground: #ffffff;
+  --destructive-container: #fdeded;
+  --border: #e7e5e0;
+  --input: #ffffff;
+  /* Focus ring color — cobalt. 2px width, 2px offset (see
+     brand_meta.accessibility). */
+  --ring: var(--color-cobalt);
+  --success: var(--color-malachite);
+  --warning: #7a5c00;
+  --error: var(--destructive);
+  --info: var(--color-cobalt); /* Informational states */
+
+  /* === Legacy aliases. 0.1.1 namespaced the heritage tones --heritage-*; they
+     are --color-* now, like every other family. These keep the four existing
+     consumers compiling unchanged. Do not use in new code. */
+  --heritage-indigo: var(--color-indigo);
+  --heritage-savanna: var(--color-savanna);
+  --heritage-baobab: var(--color-baobab);
+  --heritage-sunset: var(--color-sunset);
+  --heritage-river: var(--color-river);
+  --heritage-hematite: var(--color-hematite);
+  --heritage-kalahari: var(--color-kalahari);
+
+  /* === Registry roles (mzizi-registry lib/tokens/roles.source.ts): what a
+     component names — --status-* tones, --tier-* verification tiers, chart and
+     category series. Resolved Mzizi values; regenerate with `pnpm canon:fetch
+     && pnpm tokens:build`. */
+  --assurance-documented: #283593;
+  --assurance-documented-container: #e8eaf6;
+  --assurance-documented-on-container: #141a5c;
+  --assurance-documented-text: #283593;
+  --assurance-government: #5d4037;
+  --assurance-government-container: #fff8e1;
+  --assurance-government-on-container: #3e2723;
+  --assurance-government-text: #5d4037;
+  --assurance-licensed: #4b0082;
+  --assurance-licensed-container: #f3e5f5;
+  --assurance-licensed-on-container: #2e004d;
+  --assurance-licensed-text: #4b0082;
+  --assurance-none: #55514b;
+  --assurance-none-container: #e5e4e1;
+  --assurance-none-on-container: #373635;
+  --assurance-none-text: #504f4e;
+  --assurance-otp: #0047ab;
+  --assurance-otp-container: #e3f2fd;
+  --assurance-otp-on-container: #002966;
+  --assurance-otp-text: #0047ab;
+  --attestation-business: #004d40;
+  --attestation-business-container: #e0f2f1;
+  --attestation-business-on-container: #00332b;
+  --attestation-business-text: #004d40;
+  --attestation-community: #a0522d;
+  --attestation-community-container: #f5e6d3;
+  --attestation-community-on-container: #5d2906;
+  --attestation-community-text: #7b3f23;
+  --attestation-domain: #bf5a36;
+  --attestation-domain-container: #fbe4da;
+  --attestation-domain-on-container: #5c2410;
+  --attestation-domain-text: #7e3b24;
+  --border-control: #787774;
+  --category-1: #0047ab;
+  --category-2: #4b0082;
+  --category-3: #004d40;
+  --category-4: #5d4037;
+  --category-5: #a0522d;
+  --category-6: #283593;
+  --category-7: #bf5a36;
+  --chart-1: #0047ab;
+  --chart-2: #4b0082;
+  --chart-3: #004d40;
+  --chart-4: #5d4037;
+  --chart-5: #a0522d;
+  --chart-6: #283593;
+  --chart-7: #bf5a36;
+  --chart-negative: #b3261e;
+  --chart-neutral: #55514b;
+  --chart-positive: #004d40;
+  --destructive-text: #98201a;
+  --hero-text: #ffffff;
+  --on-surface-qr: #0e0d0c;
+  --overlay-foreground: #373635;
+  --status-alpha: #5d4037;
+  --status-alpha-container: #fff8e1;
+  --status-alpha-on-container: #3e2723;
+  --status-alpha-text: #5d4037;
+  --status-beta: #0047ab;
+  --status-beta-container: #e3f2fd;
+  --status-beta-on-container: #002966;
+  --status-beta-text: #0047ab;
+  --status-danger: #a0522d;
+  --status-danger-container: #f5e6d3;
+  --status-danger-on-container: #5d2906;
+  --status-danger-text: #7b3f23;
+  --status-deprecated: #a0522d;
+  --status-deprecated-container: #f5e6d3;
+  --status-deprecated-on-container: #5d2906;
+  --status-deprecated-text: #7b3f23;
+  --status-error: #b3261e;
+  --status-info: #0047ab;
+  --status-info-container: #e3f2fd;
+  --status-info-on-container: #002966;
+  --status-info-text: #0047ab;
+  --status-neutral: #55514b;
+  --status-neutral-container: #e5e4e1;
+  --status-neutral-on-container: #373635;
+  --status-neutral-text: #504f4e;
+  --status-premium: #4b0082;
+  --status-premium-container: #f3e5f5;
+  --status-premium-on-container: #2e004d;
+  --status-premium-text: #4b0082;
+  --status-stable: #004d40;
+  --status-stable-container: #e0f2f1;
+  --status-stable-on-container: #00332b;
+  --status-stable-text: #004d40;
+  --status-success: #004d40;
+  --status-success-container: #e0f2f1;
+  --status-success-on-container: #00332b;
+  --status-success-text: #004d40;
+  --status-warning: #5d4037;
+  --status-warning-container: #fff8e1;
+  --status-warning-on-container: #3e2723;
+  --status-warning-text: #5d4037;
+  --surface-qr: #ffffff;
+  --text-primary: #373635;
+  --text-secondary: #504f4e;
+  --text-tertiary: #6b6a69;
+  --tier-community: #a0522d;
+  --tier-community-container: #f5e6d3;
+  --tier-community-on-container: #5d2906;
+  --tier-community-text: #7b3f23;
+  --tier-government: #5d4037;
+  --tier-government-container: #fff8e1;
+  --tier-government-on-container: #3e2723;
+  --tier-government-text: #5d4037;
+  --tier-licensed: #4b0082;
+  --tier-licensed-container: #f3e5f5;
+  --tier-licensed-on-container: #2e004d;
+  --tier-licensed-text: #4b0082;
+  --tier-otp: #0047ab;
+  --tier-otp-container: #e3f2fd;
+  --tier-otp-on-container: #002966;
+  --tier-otp-text: #0047ab;
+  --tier-unverified: #55514b;
+  --tier-unverified-container: #e5e4e1;
+  --tier-unverified-on-container: #373635;
+  --tier-unverified-text: #504f4e;
+
+  /* === Touch targets — accessibility mandate, 56px comfortable. */
+  --touch-target: 49px;
+  --touch-target-sm: 40px;
+
+  /* === Radius scale. Ecosystem numbers 7/12/14/17; buttons are always pill. */
+  --radius-unit: 7px;
+  --radius-sm: 7px;
+  --radius-md: 12px;
+  --radius-lg: 14px;
+  --radius-xl: 17px;
+  --radius-2xl: 17px;
+  --radius-full: 9999px;
+}
+
+.dark,
+[data-theme="dark"] {
+  /* === Seven African Minerals — the deep-earth + hand families */
+  --color-cobalt: #00b0ff; /* Primary blue, links, CTAs */
+  --color-cobalt-container: #001f3f;
+  --color-cobalt-on-container: #b3e5fc;
+  --color-cobalt-brand: #0047ab; /* The brand fill, both themes */
+  --color-cobalt-on-brand: #e3f2fd;
+
+  --color-tanzanite: #b388ff; /* Purple accent, brand/logo, social features */
+  --color-tanzanite-container: #1a0033;
+  --color-tanzanite-on-container: #e1bee7;
+  --color-tanzanite-brand: #b388ff; /* The brand fill, both themes */
+  --color-tanzanite-on-brand: #2e004d;
+
+  --color-malachite: #64ffda; /* Success states, positive actions */
+  --color-malachite-container: #00251a;
+  --color-malachite-on-container: #a7ffeb;
+  --color-malachite-brand: #64ffda; /* The brand fill, both themes */
+  --color-malachite-on-brand: #00332b;
+
+  --color-gold: #ffd740; /* Achievements, rewards, highlights */
+  --color-gold-container: #332200;
+  --color-gold-on-container: #ffecb3;
+  --color-gold-brand: #ffd740; /* The brand fill, both themes */
+  --color-gold-on-brand: #3e2723;
+
+  --color-terracotta: #e1b07e; /* Community features, warmth */
+  --color-terracotta-container: #3e2817;
+  --color-terracotta-on-container: #f5e6d3;
+  --color-terracotta-brand: #a0522d; /* The brand fill, both themes */
+  --color-terracotta-on-brand: #f5e6d3;
+
+  --color-sodalite: #3d5afe; /* AI/Shamwari surfaces, deep-reasoning states */
+  --color-sodalite-container: #0d1442;
+  --color-sodalite-on-container: #c5cae9;
+  --color-sodalite-brand: #283593; /* The brand fill, both themes */
+  --color-sodalite-on-brand: #e8eaf6;
+
+  --color-copper: #ff8a65; /* Bundu ecosystem identity, the commons */
+  --color-copper-container: #3a1a0e;
+  --color-copper-on-container: #ffd3c2;
+  --color-copper-brand: #bf5a36; /* The brand fill, both themes */
+  --color-copper-on-brand: #fbe4da;
+
+  /* === Seven heritage tones — atmospheric anchors. Canon carries light/dark
+     only for these; there is no container step. */
+  /* Twilight surfaces, deep atmosphere, mini-app moods */
+  --color-indigo: #7986cb;
+
+  --color-savanna: #e5c158; /* Warm grassland surfaces, daylight atmosphere */
+
+  /* Earthy surfaces, grounded atmosphere, bark tones */
+  --color-baobab: #a1887f;
+
+  --color-sunset: #ff7043; /* Warm accent surfaces, golden-hour atmosphere */
+
+  --color-river: #4dd0e1; /* Cool surfaces, flowing atmosphere, water tones */
+
+  --color-hematite: #90a4ae; /* Neutral anchor, mini-app surfaces, atmosphere */
+
+  /* Light anchor, warm backgrounds, mini-app surfaces */
+  --color-kalahari: #e8d9b5;
+
+  /* === Seven experimental tones — the computed heptagon (hues offset 17°,
+     prime saturations). `-ui` is the solved interactive step. */
+  --color-ember: #da8766;
+  --color-ember-container: #352721;
+  --color-ember-on-container: #eba68a;
+  --color-ember-ui: #bb562d;
+
+  --color-acacia: #93a528;
+  --color-acacia-container: #333521;
+  --color-acacia-on-container: #b6ce23;
+  --color-acacia-ui: #768420;
+
+  --color-fern: #2cb42b;
+  --color-fern-container: #213521;
+  --color-fern-on-container: #28db28;
+  --color-fern-ui: #228d22;
+
+  --color-lagoon: #2aae9b;
+  --color-lagoon-container: #213532;
+  --color-lagoon-on-container: #24d6bc;
+  --color-lagoon-ui: #218a7a;
+
+  --color-storm: #7e9be0;
+  --color-storm-container: #212735;
+  --color-storm-on-container: #99b2ee;
+  --color-storm-ui: #426cd1;
+
+  --color-dusk: #ba87e2;
+  --color-dusk-container: #2d2135;
+  --color-dusk-on-container: #cc9fef;
+  --color-dusk-ui: #9749d3;
+
+  --color-protea: #df7bb4;
+  --color-protea-container: #35212d;
+  --color-protea-on-container: #ed98c9;
+  --color-protea-ui: #ca3188;
+
+  /* === Nine-step surface ladder, shallow to deep. Prime steps P2..P17. */
+  --pitch: #050505; /* Deepest surface — media wells, splash (prime step P2) */
+  --void: #080807; /* App shell behind base (prime step P3) */
+  --base: #0e0d0c; /* Page background — ambient base surface (prime step P5) */
+  --surface: #131211; /* Card / panel surface (prime step P7) */
+  /* Neutral containers, grouped content (prime step P11) */
+  --container: #1e1d1a;
+  --overlay: #23221f; /* Overlays and dialogs (prime step P13) */
+  /* Raised elements above overlay — menus, toasts (prime step P17) */
+  --raised: #2e2c29;
+  --scrim: rgba(0, 0, 0, 0.6); /* Semi-transparent backdrop behind overlays */
+  /* Cover-colour page wash — surface tinted with the active brand accent (~7%
+     light / ~12% dark) */
+  --wash: color-mix(in oklab, var(--surface) 88%, var(--brand-accent));
+  /* Deepest fill — inset sections, metadata rows, maximum text contrast. Canon
+     calls this background "muted"; the shadcn semantic --muted already owns
+     that name below. */
+  --surface-muted: #050504;
+
+  /* === Per-app brand mineral. --wash mixes it into --surface; the brand-*.css
+     overlays repoint it alongside --primary. */
+  /* Per-app/per-context saturated brand mineral for accent fills and CTAs.
+     Defaults to tanzanite — the Mukoko/Nyuchi brand mineral. Swappable per app
+     or per-event/category (Mukoko Events). Distinct from the semantic --accent
+     (a pale container for hover/selected states). */
+  --brand-accent: #b388ff;
+  --brand-accent-foreground: #0e0d0c;
+
+  /* === Connectivity status trio. */
+  --syncing: #36abba; /* In-progress sync / pending state */
+  --offline: #ba9570; /* Offline / disconnected state */
+  --neutral: #a09c93; /* Neutral / inactive status, secondary data series */
+
+  /* === Semantic tokens — the shadcn/Tailwind contract. */
+  /* Canon `base`. Was #faf9f4 / #100f0e before 0.2.0 — drift fixes 1 and 2. */
+  --background: var(--base);
+  --canvas: var(--background);
+  --foreground: #f0efe9;
+  --ink: var(--foreground);
+  /* Dark was #1a1917 before 0.2.0 — drift fix 3. Light stays white: a marketing
+     card floats above the base by design. */
+  --card: var(--surface);
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--card-foreground);
+  /* Drift fix 6. Canon: "Cobalt is the exceptional mineral for links/info only
+     — do not use it as --primary." Every brand-*.css overlay repoints this;
+     tanzanite is the unbranded default. */
+  --primary: var(--color-tanzanite);
+  --primary-foreground: #1a1917;
+  --secondary: #2a2927; /* Light was #f4f2ec before 0.2.0 — drift fix 5. */
+  --secondary-foreground: var(--foreground);
+  --muted: #2a2927; /* Light was #f4f2ec before 0.2.0 — drift fix 4. */
+  --muted-foreground: #a8a6a0;
+  --accent: var(--color-cobalt-container);
+  --accent-foreground: var(--color-cobalt-on-container);
+  --destructive: #f2b8b5;
+  --destructive-foreground: #1a1917;
+  --destructive-container: #3e1818;
+  --border: #2a2927;
+  --input: #100f0e;
+  /* Focus ring color — cobalt. 2px width, 2px offset (see
+     brand_meta.accessibility). */
+  --ring: var(--color-cobalt);
+  --success: var(--color-malachite);
+  --warning: #ffd866;
+  --error: var(--destructive);
+  --info: var(--color-cobalt); /* Informational states */
+
+  /* === Legacy aliases. 0.1.1 namespaced the heritage tones --heritage-*; they
+     are --color-* now, like every other family. These keep the four existing
+     consumers compiling unchanged. Do not use in new code. */
+  --heritage-indigo: var(--color-indigo);
+  --heritage-savanna: var(--color-savanna);
+  --heritage-baobab: var(--color-baobab);
+  --heritage-sunset: var(--color-sunset);
+  --heritage-river: var(--color-river);
+  --heritage-hematite: var(--color-hematite);
+  --heritage-kalahari: var(--color-kalahari);
+
+  /* === Registry roles (mzizi-registry lib/tokens/roles.source.ts): what a
+     component names — --status-* tones, --tier-* verification tiers, chart and
+     category series. Resolved Mzizi values; regenerate with `pnpm canon:fetch
+     && pnpm tokens:build`. */
+  --assurance-documented: #4b66fe;
+  --assurance-documented-container: #0d1442;
+  --assurance-documented-on-container: #c7ccea;
+  --assurance-documented-text: #c6cfff;
+  --assurance-government: #ffd740;
+  --assurance-government-container: #332200;
+  --assurance-government-on-container: #ffecb3;
+  --assurance-government-text: #ffd740;
+  --assurance-licensed: #b388ff;
+  --assurance-licensed-container: #1a0033;
+  --assurance-licensed-on-container: #e3c2e8;
+  --assurance-licensed-text: #dcc8ff;
+  --assurance-none: #a09c93;
+  --assurance-none-container: #1e1d1a;
+  --assurance-none-on-container: #e5e5e3;
+  --assurance-none-text: #ccccca;
+  --assurance-otp: #00b0ff;
+  --assurance-otp-container: #001f3f;
+  --assurance-otp-on-container: #b3e5fc;
+  --assurance-otp-text: #86dcff;
+  --attestation-business: #64ffda;
+  --attestation-business-container: #00251a;
+  --attestation-business-on-container: #a7ffeb;
+  --attestation-business-text: #64ffda;
+  --attestation-community: #e1b07e;
+  --attestation-community-container: #3e2817;
+  --attestation-community-on-container: #f5e6d3;
+  --attestation-community-text: #ebcca3;
+  --attestation-domain: #ff8a65;
+  --attestation-domain-container: #3a1a0e;
+  --attestation-domain-on-container: #ffd3c2;
+  --attestation-domain-text: #ffc3b0;
+  --border-control: #818180;
+  --category-1: #00b0ff;
+  --category-2: #b388ff;
+  --category-3: #64ffda;
+  --category-4: #ffd740;
+  --category-5: #e1b07e;
+  --category-6: #3d5afe;
+  --category-7: #ff8a65;
+  --chart-1: #00b0ff;
+  --chart-2: #b388ff;
+  --chart-3: #64ffda;
+  --chart-4: #ffd740;
+  --chart-5: #e1b07e;
+  --chart-6: #3d5afe;
+  --chart-7: #ff8a65;
+  --chart-negative: #f2b8b5;
+  --chart-neutral: #a09c93;
+  --chart-positive: #64ffda;
+  --destructive-text: #f3c0bd;
+  --hero-text: #ffffff;
+  --on-surface-qr: #0e0d0c;
+  --overlay-foreground: #e5e5e3;
+  --status-alpha: #ffd740;
+  --status-alpha-container: #332200;
+  --status-alpha-on-container: #ffecb3;
+  --status-alpha-text: #ffd740;
+  --status-beta: #00b0ff;
+  --status-beta-container: #001f3f;
+  --status-beta-on-container: #b3e5fc;
+  --status-beta-text: #86dcff;
+  --status-danger: #e1b07e;
+  --status-danger-container: #3e2817;
+  --status-danger-on-container: #f5e6d3;
+  --status-danger-text: #ebcca3;
+  --status-deprecated: #e1b07e;
+  --status-deprecated-container: #3e2817;
+  --status-deprecated-on-container: #f5e6d3;
+  --status-deprecated-text: #ebcca3;
+  --status-error: #f3bdba;
+  --status-info: #00b0ff;
+  --status-info-container: #001f3f;
+  --status-info-on-container: #b3e5fc;
+  --status-info-text: #86dcff;
+  --status-neutral: #a09c93;
+  --status-neutral-container: #1e1d1a;
+  --status-neutral-on-container: #e5e5e3;
+  --status-neutral-text: #ccccca;
+  --status-premium: #b388ff;
+  --status-premium-container: #1a0033;
+  --status-premium-on-container: #e3c2e8;
+  --status-premium-text: #dcc8ff;
+  --status-stable: #64ffda;
+  --status-stable-container: #00251a;
+  --status-stable-on-container: #a7ffeb;
+  --status-stable-text: #64ffda;
+  --status-success: #64ffda;
+  --status-success-container: #00251a;
+  --status-success-on-container: #a7ffeb;
+  --status-success-text: #64ffda;
+  --status-warning: #ffd740;
+  --status-warning-container: #332200;
+  --status-warning-on-container: #ffecb3;
+  --status-warning-text: #ffd740;
+  --surface-qr: #ffffff;
+  --text-primary: #e5e5e3;
+  --text-secondary: #ccccca;
+  --text-tertiary: #b3b3b1;
+  --tier-community: #e1b07e;
+  --tier-community-container: #3e2817;
+  --tier-community-on-container: #f5e6d3;
+  --tier-community-text: #ebcca3;
+  --tier-government: #ffd740;
+  --tier-government-container: #332200;
+  --tier-government-on-container: #ffecb3;
+  --tier-government-text: #ffd740;
+  --tier-licensed: #b388ff;
+  --tier-licensed-container: #1a0033;
+  --tier-licensed-on-container: #e3c2e8;
+  --tier-licensed-text: #dcc8ff;
+  --tier-otp: #00b0ff;
+  --tier-otp-container: #001f3f;
+  --tier-otp-on-container: #b3e5fc;
+  --tier-otp-text: #86dcff;
+  --tier-unverified: #a09c93;
+  --tier-unverified-container: #1e1d1a;
+  --tier-unverified-on-container: #e5e5e3;
+  --tier-unverified-text: #ccccca;
+}

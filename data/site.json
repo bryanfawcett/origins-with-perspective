@@ -1,0 +1,208 @@
+{
+  "_generated": "by scripts/export-site-data.mjs from src/data and src/brand. Do not edit.",
+  "profile": {
+    "name": "Bryan Fawcett",
+    "title": "Digital Craftsman",
+    "email": "bryan@nyuchi.com",
+    "location": "Singapore",
+    "tagline": "I craft dynamic ecosystems that unite and empower communities.",
+    "roles": [
+      {
+        "title": "Founder & CEO",
+        "org": "Nyuchi Africa"
+      },
+      {
+        "title": "Founder",
+        "org": "The Bundu Foundation"
+      },
+      {
+        "title": "Associate Technology & Innovation Coordinator",
+        "org": "Singapore American School"
+      }
+    ],
+    "socials": [
+      {
+        "name": "LinkedIn",
+        "handle": "bryandavidfawcett",
+        "href": "https://www.linkedin.com/in/bryandavidfawcett/"
+      },
+      {
+        "name": "GitHub",
+        "handle": "bryanfawcett",
+        "href": "https://github.com/bryanfawcett/"
+      },
+      {
+        "name": "Twitter",
+        "handle": "@bryanfawcett",
+        "href": "https://x.com/bryanfawcett"
+      },
+      {
+        "name": "Email",
+        "handle": "bryan@nyuchi.com",
+        "href": "mailto:bryan@nyuchi.com"
+      }
+    ]
+  },
+  "origins_work": {
+    "heading": "What I’m working on",
+    "lede": "Three strands of the same question — one inside a school, one in research, one across a continent.",
+    "columns": [
+      {
+        "heading": "Singapore American School",
+        "items": [
+          {
+            "title": "AI tooling for educators",
+            "detail": "Introducing tools that can recall and synthesise information instantly — which is exactly what makes the assessment question urgent."
+          },
+          {
+            "title": "The Toddle transition",
+            "detail": "Moving how we plan, document and report on learning, which means deciding what is worth capturing in the first place."
+          },
+          {
+            "title": "Educator Eval & the Digital Toolkit",
+            "detail": "Platforms for evaluation, growth conversations, shared tools, and a single place for institutional knowledge to live."
+          },
+          {
+            "title": "Privacy & governance",
+            "detail": "The groundwork before any of this: student data handled properly, systems that hold up to scrutiny."
+          }
+        ]
+      },
+      {
+        "heading": "Nyuchi Africa and Mukoko",
+        "items": [
+          {
+            "title": "Nyuchi Learning",
+            "detail": "Training, the open Bundu Education frameworks, and classroom tools built for African schools.",
+            "href": "https://learning.nyuchi.com"
+          },
+          {
+            "title": "Mukoko Lingo",
+            "detail": "Learning African languages, with Shona and Ndebele first.",
+            "href": "https://lingo.mukoko.com"
+          },
+          {
+            "title": "Mukoko & Mukoko News",
+            "detail": "A privacy-focused social platform, and pan-African news aggregated from trusted regional sources.",
+            "href": "https://mukoko.com"
+          },
+          {
+            "title": "Mukoko Weather",
+            "detail": "Forecasts and frost alerts for farming, mining, border posts and travel, built on the Foundation's open Weather Commons.",
+            "href": "https://weather.mukoko.com"
+          },
+          {
+            "title": "Mukoko Events",
+            "detail": "Community events and gatherings — grown out of nhimbe, the Shona tradition of working a field together.",
+            "href": "https://events.mukoko.com"
+          }
+        ]
+      },
+      {
+        "heading": "The Bundu Foundation",
+        "items": [
+          {
+            "title": "The Bundu Foundation",
+            "detail": "A Zimbabwean research foundation. Its main work is mapping infrastructure gaps in African and emerging markets and publishing the answers in the open.",
+            "href": "https://www.bundu.org"
+          },
+          {
+            "title": "Open standards and research",
+            "detail": "Standards, frameworks and benchmarks that schools, builders and governments can adopt for free, including Mzizi: the design system this ecosystem is built with, and a research programming language still in Phase 0.",
+            "href": "https://www.bundu.org/research"
+          },
+          {
+            "title": "Bundu Weather Commons",
+            "detail": "Open weather and agricultural data for Africa, held by the Foundation: ground readings, blended forecasts, climate normals and farm datasets, every record attributed.",
+            "href": "https://www.bundu.org/projects"
+          }
+        ]
+      }
+    ],
+    "note": "The Nyuchi work was built for places where credentials were never the thing that got you through. That is the same instinct I bring to the work at school."
+  },
+  "nav": [
+    {
+      "labelKey": "nav.profile",
+      "href": "/"
+    },
+    {
+      "labelKey": "nav.experience",
+      "href": "/experience"
+    },
+    {
+      "labelKey": "nav.adventures",
+      "href": "/adventures"
+    },
+    {
+      "labelKey": "nav.origins",
+      "href": "/origins-with-perspective"
+    },
+    {
+      "labelKey": "nav.minerals",
+      "href": "/minerals"
+    },
+    {
+      "labelKey": "nav.book",
+      "href": "/book"
+    }
+  ],
+  "socials": {
+    "en": [
+      {
+        "name": "LinkedIn",
+        "href": "https://www.linkedin.com/in/bryandavidfawcett/"
+      },
+      {
+        "name": "GitHub",
+        "href": "https://github.com/bryanfawcett/"
+      },
+      {
+        "name": "Twitter",
+        "href": "https://x.com/bryanfawcett"
+      },
+      {
+        "name": "Email",
+        "href": "mailto:bryan@nyuchi.com"
+      }
+    ],
+    "zh": [
+      {
+        "name": "LinkedIn",
+        "href": "https://www.linkedin.com/in/bryandavidfawcett/"
+      },
+      {
+        "name": "GitHub",
+        "href": "https://github.com/bryanfawcett/"
+      },
+      {
+        "name": "Twitter",
+        "href": "https://x.com/bryanfawcett"
+      },
+      {
+        "name": "邮箱",
+        "href": "mailto:bryan@nyuchi.com"
+      }
+    ]
+  },
+  "minerals": [
+    "cobalt",
+    "tanzanite",
+    "malachite",
+    "gold",
+    "terracotta",
+    "sodalite",
+    "copper"
+  ],
+  "booking_url": "https://cal.com/bryanfawcett/book-a-call",
+  "qr": {
+    "dark": {
+      "dark": "#F0EFE9",
+      "light": "#001F3F"
+    },
+    "light": {
+      "dark": "#1A1A17",
+      "light": "#FFFFFF"
+    }
+  }
+}
