@@ -12,6 +12,13 @@ compatibility_date = "2026-08-26"
 # `not_found_handling` is left at its default: this deck is a single page and
 # has no 404.html for the asset layer to serve, so setting it would only imply
 # a page that does not exist.
+# The deck's own address. A custom domain, not a route: Cloudflare creates the DNS
+# record and the certificate when this deploys, since bryanfawcett.com is a zone in
+# this account. The workers.dev URL keeps working.
+routes = [
+  { pattern = "origins-deck.bryanfawcett.com", custom_domain = true },
+]
+
 [assets]
 directory = "./dist"
 
