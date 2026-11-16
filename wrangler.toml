@@ -19,6 +19,10 @@ routes = [
   { pattern = "origins-deck.bryanfawcett.com", custom_domain = true },
 ]
 
+# Wrangler turns the workers.dev address off by default once `routes` is set. Keep it
+# on: bryanfawcett.com and any other embed still point at it.
+workers_dev = true
+
 [assets]
 directory = "./dist"
 
