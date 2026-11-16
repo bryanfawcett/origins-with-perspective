@@ -1,14 +1,11 @@
 name = "origins-with-perspective"
 compatibility_date = "2026-08-26"
 
-# An assets-only Worker: every route is prerendered, so there is no `main`.
-#
-# There used to be a worker.js here whose whole job was to strip
-# X-Frame-Options and set `frame-ancestors *` so the deck could be embedded.
-# It never ran on the deck: static assets are matched before the Worker
-# script, so it only executed on paths that were not assets — 404s — where
-# framing headers do nothing. The policy now lives in public/_headers, which
-# the asset layer reads directly and which actually applies.
+# A Rust Worker (crates/deck-worker) in front of the static deck. The compiled output is
+# committed in prebuilt-worker/ because Cloudflare's build image has no Rust; ./release.sh
+# refreshes it. It runs first (`run_worker_first`) so it sets the embedding headers on every
+# response; the assets binding does the serving.
+main = "./prebuilt-worker/index.js"
 # `not_found_handling` is left at its default: this deck is a single page and
 # has no 404.html for the asset layer to serve, so setting it would only imply
 # a page that does not exist.
@@ -25,6 +22,8 @@ workers_dev = true
 
 [assets]
 directory = "./dist"
+binding = "ASSETS"
+run_worker_first = true
 
 # The deck is one page: a request for anything else should say so rather than
 # be served the talk. `404-page` needs a 404.html in the asset tree, which a
