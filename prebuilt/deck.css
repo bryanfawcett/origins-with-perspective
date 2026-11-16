@@ -1082,3 +1082,40 @@ button {
     line-height: 1.38;
   }
 }
+
+/* ==================== phone: a solid bar, scrolling slides ==================== */
+
+/*
+ * On a phone a slide is taller than the screen and scrolls, so the floating
+ * pill sat over the text. It becomes a solid full-width bar the slides scroll
+ * behind, with the progress rule as its top edge, and every slide keeps room
+ * under its last line.
+ */
+@media (max-width: 51rem) {
+  .controls {
+    inset-inline: 0;
+    inset-block-end: 0;
+    left: 0;
+    translate: none;
+    width: auto;
+    max-width: none;
+    box-sizing: border-box;
+    min-height: calc(60px + env(safe-area-inset-bottom, 0px));
+    padding: var(--space-2) var(--space-5) calc(var(--space-2) + env(safe-area-inset-bottom, 0px));
+    border: 0;
+    border-block-start: 1px solid var(--ink-hair);
+    border-radius: 0;
+    background: var(--sheet);
+  }
+
+  .progress {
+    inset-inline: 0;
+    inset-block-end: calc(60px + env(safe-area-inset-bottom, 0px));
+    height: 3px;
+    border-radius: 0;
+  }
+
+  .slide {
+    padding-block-end: calc(60px + var(--space-6) + env(safe-area-inset-bottom, 0px));
+  }
+}

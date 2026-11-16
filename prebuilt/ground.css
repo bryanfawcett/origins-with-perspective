@@ -78,7 +78,7 @@
 .blueprint {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: var(--z-raised);
   pointer-events: none;
   /*
    * `plus-lighter` rather than `multiply`: on a cyanotype the ruling is lighter
@@ -121,7 +121,7 @@
 .schematics {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: var(--z-raised);
   pointer-events: none;
   /* Merged in from the component's own block, which declared it a second time. */
   color: var(--ink);
