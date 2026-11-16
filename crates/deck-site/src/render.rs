@@ -9,7 +9,7 @@ use maud::{DOCTYPE, Markup, PreEscaped, html};
 use crate::marked;
 use crate::model::{Lede, MINERALS, Slide};
 
-const CANONICAL: &str = "https://origins-with-perspective.nyuchi.workers.dev/";
+const CANONICAL: &str = "https://origins-deck.bryanfawcett.com/";
 pub const TITLE: &str = "Origins with a Perspective on Human Potential — Bryan Fawcett";
 pub const DESCRIPTION: &str = "A talk on equity and the assumptions we make in learning: what growing up in Zimbabwe taught me about measuring capability instead of credentials.";
 

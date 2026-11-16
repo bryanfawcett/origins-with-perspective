@@ -1,0 +1,21 @@
+# Served by Cloudflare's static-asset layer, which reads this file directly —
+# no Worker involved.
+#
+# This replaces a worker.js that set the same policy and never ran. Assets are
+# matched before the Worker script, so on the deck itself the script was
+# skipped entirely and only executed on paths that were not assets — that is,
+# on 404s, where framing headers are meaningless. The deck was embeddable only
+# because Cloudflare's asset layer sends no X-Frame-Options of its own.
+#
+# `frame-ancestors *` is deliberate and is the point of this file: the deck is
+# meant to be embedded, both by bryanfawcett.com/origins-with-perspective and
+# by the example in embed-example.html. Stating it here makes that a guarantee
+# rather than a platform default that could change under us.
+#
+# The Worker also set Access-Control-Allow-* on every response. Those are not
+# carried over: CORS governs script-initiated cross-origin reads, not whether a
+# document may be framed, so they did nothing for the embedding case.
+/*
+  Content-Security-Policy: frame-ancestors *
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
