@@ -76,7 +76,7 @@ src/
   pages/       index.astro — a wrapper around the loop
 public/
   fonts/       self-hosted woff2, Latin + Latin Extended
-  _headers     frame-ancestors, so the deck can be embedded
+  crates/deck-worker  the Rust Worker: serves the deck and sets the embedding headers
 ```
 
 ## Commands
@@ -87,10 +87,10 @@ npm run check   # astro check — must stay at 0 errors
 npm run build   # static build to dist/
 ```
 
-Cloudflare's GitHub app deploys the Worker on push to `main`. It is an
-assets-only Worker — every route is prerendered, so there is no `main` in
-`wrangler.toml`, and the framing policy lives in `public/_headers` where the
-asset layer actually reads it.
+Cloudflare's GitHub app deploys the Worker on push to `main`. The Worker is Rust
+(`crates/deck-worker`, workers-rs): it runs first, serves the deck from the assets binding
+and sets the framing policy on every response. Its compiled output is committed in
+`prebuilt-worker/` (Cloudflare's build image has no Rust); `./release.sh` refreshes it.
 
 
 ## How it is built

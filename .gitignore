@@ -40,3 +40,4 @@ ehthumbs.db
 
 # rust
 target/
+crates/deck-worker/build/
