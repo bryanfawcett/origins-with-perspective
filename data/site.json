@@ -69,7 +69,7 @@
         ]
       },
       {
-        "heading": "Nyuchi Africa",
+        "heading": "Nyuchi Africa and Mukoko",
         "items": [
           {
             "title": "Nyuchi Learning",
@@ -121,6 +121,79 @@
     ],
     "note": "The Nyuchi work was built for places where credentials were never the thing that got you through. That is the same instinct I bring to the work at school."
   },
+  "nav": [
+    {
+      "labelKey": "nav.profile",
+      "href": "/"
+    },
+    {
+      "labelKey": "nav.experience",
+      "href": "/experience"
+    },
+    {
+      "labelKey": "nav.adventures",
+      "href": "/adventures"
+    },
+    {
+      "labelKey": "nav.origins",
+      "href": "/origins-with-perspective"
+    },
+    {
+      "labelKey": "nav.minerals",
+      "href": "/minerals"
+    },
+    {
+      "labelKey": "nav.book",
+      "href": "/book"
+    }
+  ],
+  "socials": {
+    "en": [
+      {
+        "name": "LinkedIn",
+        "href": "https://www.linkedin.com/in/bryandavidfawcett/"
+      },
+      {
+        "name": "GitHub",
+        "href": "https://github.com/bryanfawcett/"
+      },
+      {
+        "name": "Twitter",
+        "href": "https://x.com/bryanfawcett"
+      },
+      {
+        "name": "Email",
+        "href": "mailto:bryan@nyuchi.com"
+      }
+    ],
+    "zh": [
+      {
+        "name": "LinkedIn",
+        "href": "https://www.linkedin.com/in/bryandavidfawcett/"
+      },
+      {
+        "name": "GitHub",
+        "href": "https://github.com/bryanfawcett/"
+      },
+      {
+        "name": "Twitter",
+        "href": "https://x.com/bryanfawcett"
+      },
+      {
+        "name": "邮箱",
+        "href": "mailto:bryan@nyuchi.com"
+      }
+    ]
+  },
+  "minerals": [
+    "cobalt",
+    "tanzanite",
+    "malachite",
+    "gold",
+    "terracotta",
+    "sodalite",
+    "copper"
+  ],
   "booking_url": "https://cal.com/bryanfawcett/book-a-call",
   "qr": {
     "dark": {

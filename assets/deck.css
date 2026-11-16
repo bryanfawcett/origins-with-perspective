@@ -92,6 +92,7 @@ button {
 
 .mineral-rail > span {
   flex: 1;
+  background: var(--mineral);
 }
 
 .skip-link {
@@ -635,5 +636,449 @@ button {
   *::after {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
+  }
+}
+
+/* ==================== the stage ==================== */
+
+/*
+ * A slideshow, not a page: one fixed 16:9 stage, scaled to the window, with every
+ * slide drawn on it. Type, spacing and the slide shapes are all rem, so the whole
+ * thing scales with the stage rather than being laid out against the viewport. A
+ * slide never scrolls on a desktop, because the stage is the page.
+ *
+ * `--stage-w` is the widest 16:9 box that fits above the controls. The root font
+ * size is a 80th of it, so on a 1280px stage 1rem is 16px, and on a 1920px stage
+ * it is 24px.
+ *
+ * Below this breakpoint, or in portrait, a 16:9 box would be a letterboxed strip,
+ * so the deck falls back to a slide that scrolls, as before.
+ */
+@media (min-width: 51rem) and (min-aspect-ratio: 1/1) {
+  html:not(.no-js) {
+    /* Room for the progress track and the floating controls, in px so it does not
+     * depend on the root font size that the stage itself sets. */
+    --reserve: 112px;
+    --stage-w: min(100vw, (100dvh - var(--reserve)) * 16 / 9);
+    font-size: calc(var(--stage-w) / 80);
+  }
+
+  html:not(.no-js) body {
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  html:not(.no-js) .deck {
+    position: fixed;
+    inset: 0 0 var(--reserve);
+    display: grid;
+    place-items: center;
+  }
+
+  html:not(.no-js) .stage {
+    position: relative;
+    width: var(--stage-w);
+    aspect-ratio: 16 / 9;
+    /* The sheet's column rules, drawn on the stage rather than on each slide. */
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  html:not(.no-js) .slide {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    padding: 2.25rem 3.5rem 1.5rem;
+    place-items: center;
+  }
+
+  /* The slide fills the stage, so a short slide centres and a tall one is tightened
+   * below rather than scrolled. */
+  html:not(.no-js) .slide__shell {
+    width: 100%;
+    max-height: 100%;
+  }
+
+  /*
+   * The dense shapes are set smaller so six journey stops and twelve work items fit
+   * a 16:9 stage without scrolling. Their type is relative, so this scales with it.
+   */
+  html:not(.no-js) .slide[data-kind='journey'] .slide__shell,
+  html:not(.no-js) .slide[data-kind='columns'] .slide__shell,
+  html:not(.no-js) .slide[data-kind='grid'] .slide__shell {
+    font-size: 0.86em;
+  }
+
+  html:not(.no-js) .slide[data-kind='columns'] .slide__shell {
+    font-size: 0.9em;
+  }
+
+}
+
+/* ==================== transitions ==================== */
+
+/*
+ * The slide that arrives comes in from the side it is travelling from: forward
+ * slides in from the right, back from the left. The slide that leaves is gone at
+ * once, so only the arrival is animated.
+ */
+.deck[data-dir='next'] .slide:not([hidden]) {
+  animation: arrive-next 0.38s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+.deck[data-dir='prev'] .slide:not([hidden]) {
+  animation: arrive-prev 0.38s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+@keyframes arrive-next {
+  from {
+    opacity: 0;
+    transform: translateX(2.5rem);
+  }
+}
+
+@keyframes arrive-prev {
+  from {
+    opacity: 0;
+    transform: translateX(-2.5rem);
+  }
+}
+
+/* ==================== progress ==================== */
+
+/* How far through the talk: a rounded track above the controls, filled by the driver. */
+.progress {
+  position: fixed;
+  inset-inline: var(--space-7);
+  inset-block-end: 84px;
+  z-index: 5;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--ink-hair);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.progress > span {
+  display: block;
+  height: 100%;
+  width: calc(var(--progress, 0) * 100%);
+  border-radius: inherit;
+  background: var(--brand);
+  transition: width 0.3s ease-out;
+}
+
+.no-js .progress {
+  display: none;
+}
+
+/* ==================== the controls, as a floating bar ==================== */
+
+/*
+ * A rounded bar floating over the foot of the sheet, not a full-bleed strip: the
+ * same pill language as the site's buttons, so nothing on the page is a square
+ * rule across the window.
+ */
+.controls {
+  inset-inline: auto;
+  inset-block-end: var(--space-3);
+  left: 50%;
+  translate: -50% 0;
+  width: max-content;
+  max-width: calc(100vw - var(--space-6));
+  padding: var(--space-2) var(--space-4);
+  gap: var(--space-3);
+  border: 1px solid var(--ink-hair);
+  border-radius: var(--radius-full);
+  background: var(--sheet-raised);
+}
+
+.controls__tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding-inline: var(--space-4);
+  border: 1px solid var(--ink-faint);
+  border-radius: var(--radius-full);
+  font-family: var(--mono);
+  font-size: var(--label);
+  font-weight: var(--label-weight);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  transition: border-color 0.2s ease;
+}
+
+.controls__tool:hover {
+  border-color: var(--ink);
+}
+
+@media (max-width: 51rem) {
+  .controls__tool {
+    display: none;
+  }
+
+  .progress {
+    inset-inline: var(--space-5);
+  }
+}
+
+/* ==================== the overview ==================== */
+
+/* Every slide at a glance. Opened with O, closed with Esc or a click outside. */
+.overview {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: var(--space-6);
+  background: color-mix(in oklab, var(--sheet) 82%, transparent);
+  backdrop-filter: blur(6px);
+}
+
+.overview[hidden] {
+  display: none;
+}
+
+.overview__inner {
+  width: min(72rem, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  padding: var(--space-6);
+  border: 1px solid var(--ink-hair);
+  border-radius: var(--radius-lg);
+  background: var(--sheet-raised);
+}
+
+.overview__head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-block-end: var(--space-5);
+  font-family: var(--mono);
+  font-size: var(--label);
+  font-weight: var(--label-weight);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.overview__grid {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(15rem, 100%), 1fr));
+  gap: var(--space-3);
+}
+
+.overview__item {
+  display: grid;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-5);
+  text-align: start;
+  background: var(--sheet-wash);
+  border: 1px solid var(--ink-hair);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.2s ease;
+}
+
+.overview__item:hover,
+.overview__item[aria-current='true'] {
+  border-color: var(--ink-faint);
+}
+
+/* The mineral under the title, never in it. */
+.overview__t {
+  font-family: var(--display);
+  font-size: 1.125rem;
+  padding-block-end: 0.3rem;
+  border-block-end: var(--mineral-weight) solid var(--mineral);
+}
+
+.overview__n {
+  font-family: var(--mono);
+  font-size: var(--label);
+  font-weight: var(--label-weight);
+  letter-spacing: 0.16em;
+  color: var(--ink-soft);
+}
+
+.no-js .overview {
+  display: none;
+}
+
+@media print {
+  .progress,
+  .overview {
+    display: none;
+  }
+}
+
+/* ==================== the journey and the work, as cards ==================== */
+
+/*
+ * Slides six and seven were lists, and a list runs down the page: the journey was a
+ * column of six rows and the work was a dozen items. A slide is a stage, so both are
+ * now grids of the site's own card (the aptitude card: a hairline at the radius token,
+ * the heading in ink, the mineral as a rule under it) and fill the stage instead of
+ * running off it.
+ */
+
+/* ---- the journey: six stops, three across ---- */
+.journey {
+  list-style: none;
+  padding: 0;
+  border: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
+  gap: var(--space-3);
+}
+
+.journey__stop {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5);
+  background: var(--sheet-wash);
+  border: 1px solid var(--ink-hair);
+  border-radius: var(--radius-lg);
+}
+
+.journey__stop:last-child {
+  padding-block-end: var(--space-4);
+  border-block-end: 1px solid var(--ink-hair);
+}
+
+/* The period and place: a label, with the stop's mineral as the rule under it. */
+.journey__meta {
+  font-size: calc(var(--label) * 0.92);
+  letter-spacing: 0.1em;
+}
+
+.journey__role {
+  font-size: 1.125rem;
+  line-height: 1.2;
+}
+
+.journey__detail {
+  margin-block-start: 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+/* ---- a strand of the work: its items as cards ---- */
+.column__list {
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  gap: var(--space-3);
+  margin-block-start: 0;
+}
+
+.column__list > li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5);
+  background: var(--sheet-wash);
+  border: 1px solid var(--ink-hair);
+  border-radius: var(--radius-lg);
+}
+
+/* The term is the card's heading: ink, with the slide's mineral as the rule. */
+.column__term {
+  font-family: var(--display);
+  font-size: 1.125rem;
+  font-weight: 500;
+  padding-block-end: 0.3rem;
+  border-block-end: var(--mineral-weight) solid var(--mineral);
+}
+
+.column__detail {
+  margin-block-start: 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+/* Four items sit as two by two; three and five fall into three across. */
+.column__list:has(> li:nth-child(4):last-child) {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 51rem) and (min-aspect-ratio: 1/1) {
+  html:not(.no-js) .journey {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  html:not(.no-js) .column__list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  html:not(.no-js) .column__list:has(> li:nth-child(4):last-child) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  html:not(.no-js) .slide[data-kind='journey'] .slide__shell,
+  html:not(.no-js) .slide[data-kind='columns'] .slide__shell {
+    font-size: 1em;
+  }
+}
+
+/* ---- the journey, fitted to the stage ---- */
+
+/*
+ * Six stops with a sentence or two each is the densest thing in the talk. Everything
+ * is in rem, so it fits or it does not at every window size alike: these proportions
+ * are what make it fit, measured, rather than a smaller font that would only shrink
+ * the problem.
+ */
+@media (min-width: 51rem) and (min-aspect-ratio: 1/1) {
+  html:not(.no-js) .slide[data-kind='journey'] {
+    padding-block: 1.5rem 1rem;
+  }
+
+  html:not(.no-js) .slide[data-kind='journey'] .slide__shell > * + * {
+    margin-block-start: var(--space-3);
+  }
+
+  html:not(.no-js) .slide[data-kind='journey'] .slide__title {
+    font-size: 2rem;
+    padding-block-end: var(--space-2);
+  }
+
+  html:not(.no-js) .slide[data-kind='journey'] .eyebrow {
+    margin-block-end: var(--space-2);
+  }
+
+  html:not(.no-js) .slide[data-kind='journey'] .lede {
+    margin-block-start: var(--space-2);
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  html:not(.no-js) .journey {
+    gap: var(--space-2);
+  }
+
+  html:not(.no-js) .journey__stop {
+    gap: var(--space-1);
+    padding: var(--space-3) var(--space-4);
+  }
+
+  html:not(.no-js) .journey__meta {
+    font-size: calc(var(--label) * 0.85);
+    letter-spacing: 0.08em;
+  }
+
+  html:not(.no-js) .journey__role {
+    font-size: 1rem;
+    line-height: 1.18;
+  }
+
+  html:not(.no-js) .journey__detail {
+    font-size: 0.82rem;
+    line-height: 1.38;
   }
 }

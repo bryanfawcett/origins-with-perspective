@@ -79,6 +79,11 @@ pub enum Slide {
         /// of this record, so the slide is the Origins page's own content.
         #[serde(default)]
         from_site: Option<String>,
+        /// One slide per column instead of all of them side by side. A slide that
+        /// carries a dozen items is a page, not a slide; this gives each strand the
+        /// stage to itself.
+        #[serde(default)]
+        split: bool,
     },
     Grid {
         title: String,
@@ -146,14 +151,6 @@ impl Slide {
 pub const MINERALS: [&str; 7] =
     ["cobalt", "tanzanite", "malachite", "gold", "terracotta", "sodalite", "copper"];
 
-/// Everything `keyedTo()` sets on the site: the mineral, its container and its
-/// on-container tone, so a slide can be themed in its mineral without a prop.
-pub fn keyed(mineral: &str) -> String {
-    format!(
-        "--mineral: var(--mineral-{mineral}); --mineral-container: var(--mineral-{mineral}-container); --mineral-on: var(--mineral-{mineral}-on-container)"
-    )
-}
-
 /// The exported site data: only the part the deck reads.
 #[derive(Debug, Deserialize)]
 pub struct Site {
@@ -211,5 +208,31 @@ impl Slide {
             }
             None => {}
         }
+    }
+}
+
+impl Slide {
+    /// Replace a `split` columns slide with one slide per column. Every other slide
+    /// comes back unchanged. The first keeps the lede; the last keeps the note.
+    pub fn expand(self) -> Vec<Slide> {
+        let Slide::Columns { title, mineral, eyebrow, lede, columns, note, from_site, split: true } = self else {
+            return vec![self];
+        };
+        let count = columns.len();
+        columns
+            .into_iter()
+            .enumerate()
+            .map(|(i, column)| Slide::Columns {
+                // The strand is the slide's heading, so the dots and the overview name it.
+                title: column.heading.clone(),
+                mineral: mineral.clone(),
+                eyebrow: format!("{eyebrow} · {title} · {} of {count}", i + 1),
+                lede: if i == 0 { lede.clone() } else { Lede { text: String::new(), mark: Vec::new() } },
+                columns: vec![Column { heading: String::new(), items: column.items }],
+                note: if i + 1 == count { note.clone() } else { None },
+                from_site: from_site.clone(),
+                split: false,
+            })
+            .collect()
     }
 }

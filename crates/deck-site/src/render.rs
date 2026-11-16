@@ -7,7 +7,7 @@
 use maud::{DOCTYPE, Markup, PreEscaped, html};
 
 use crate::marked;
-use crate::model::{Lede, MINERALS, Slide, keyed};
+use crate::model::{Lede, MINERALS, Slide};
 
 const CANONICAL: &str = "https://origins-with-perspective.nyuchi.workers.dev/";
 pub const TITLE: &str = "Origins with a Perspective on Human Potential — Bryan Fawcett";
@@ -31,7 +31,7 @@ fn slide(s: &Slide, index: usize, total: usize) -> Markup {
     // non-inert, so this adds exactly one tab stop.
     html! {
         section.slide tabindex="0" data-kind=(s.kind()) data-title=(s.title())
-            style=(keyed(s.mineral())) aria-label=(label) {
+            data-mineral=(s.mineral()) aria-label=(label) {
             div.slide__shell {
                 p.fig { (figure) }
 
@@ -50,7 +50,7 @@ fn slide(s: &Slide, index: usize, total: usize) -> Markup {
                     header."slide__head" {
                         p.eyebrow { (s.eyebrow()) }
                         h2."slide__title" { (s.title()) }
-                        p.lede { (marked(s.lede())) }
+                        @if !s.lede().text.is_empty() { p.lede { (marked(s.lede())) } }
                     }
                 }
 
@@ -65,8 +65,8 @@ fn slide(s: &Slide, index: usize, total: usize) -> Markup {
                     }
                     Slide::Journey { stops, .. } => {
                         ol.journey {
-                            @for stop in stops {
-                                li."journey__stop" {
+                            @for (i, stop) in stops.iter().enumerate() {
+                                li."journey__stop" data-mineral=(MINERALS[i % MINERALS.len()]) {
                                     p."journey__meta" { (stop.period) " · " (stop.place) }
                                     // Wrapped: as bare siblings these auto-place into
                                     // successive grid cells and the detail lands back
@@ -83,7 +83,7 @@ fn slide(s: &Slide, index: usize, total: usize) -> Markup {
                         div.columns {
                             @for col in columns {
                                 section.column {
-                                    h3."column__head" { (col.heading) }
+                                    @if !col.heading.is_empty() { h3."column__head" { (col.heading) } }
                                     ul."column__list" {
                                         @for item in &col.items {
                                             li {
@@ -130,7 +130,7 @@ fn overview(slides: &[Slide]) -> Markup {
                     @for (i, s) in slides.iter().enumerate() {
                         li {
                             button."overview__item" type="button" data-go=(i)
-                                style=(keyed(s.mineral()))
+                                data-mineral=(s.mineral())
                                 aria-label=(format!("Slide {} of {}: {}", i + 1, total, s.title())) {
                                 span."overview__n" { (format!("{:02}", i + 1)) }
                                 span."overview__t" { (s.title()) }
@@ -157,7 +157,7 @@ fn controls(slides: &[Slide]) -> Markup {
                 @for (i, s) in slides.iter().enumerate() {
                     li {
                         button."controls__mark" type="button" data-go=(i)
-                            style=(format!("--mineral: var(--mineral-{})", s.mineral()))
+                            data-mineral=(s.mineral())
                             aria-label=(format!("Slide {} of {}: {}", i + 1, total, s.title())) {
                             span."controls__tip" aria-hidden="true" { (s.title()) }
                         }
@@ -219,7 +219,7 @@ pub fn page(slides: &[Slide]) -> Markup {
                 // The brand signature: seven segments, one per mineral, down the edge.
                 div."mineral-rail" aria-hidden="true" {
                     @for m in MINERALS {
-                        span style=(format!("background: var(--mineral-{m})")) {}
+                        span data-mineral=(m) {}
                     }
                 }
 

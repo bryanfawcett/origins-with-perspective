@@ -56,6 +56,8 @@ fn main() {
     for slide in &mut slides {
         slide.apply_site(&site);
     }
+    // A `split` slide becomes one slide per column.
+    let slides: Vec<model::Slide> = slides.into_iter().flat_map(model::Slide::expand).collect();
 
     let _ = fs::remove_dir_all(&out);
     fs::create_dir_all(out.join("pkg")).expect("create dist");

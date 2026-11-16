@@ -153,7 +153,8 @@
       "text": "Two halves of the same question — one inside a school, one across a continent."
     },
     "columns": [],
-    "from_site": "origins_work"
+    "from_site": "origins_work",
+    "split": true
   },
   {
     "kind": "grid",
